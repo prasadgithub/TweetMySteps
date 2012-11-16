@@ -1,0 +1,344 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4EB912301656EEB7000AC73E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB9122F1656EEB7000AC73E /* UIKit.framework */; };
+		4EB912321656EEB7000AC73E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB912311656EEB7000AC73E /* Foundation.framework */; };
+		4EB912341656EEB7000AC73E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB912331656EEB7000AC73E /* CoreGraphics.framework */; };
+		4EB912361656EEB7000AC73E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB912351656EEB7000AC73E /* CoreData.framework */; };
+		4EB9123C1656EEB7000AC73E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EB9123A1656EEB7000AC73E /* InfoPlist.strings */; };
+		4EB9123E1656EEB7000AC73E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9123D1656EEB7000AC73E /* main.m */; };
+		4EB912421656EEB7000AC73E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB912411656EEB7000AC73E /* AppDelegate.m */; };
+		4EB912441656EEB7000AC73E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EB912431656EEB7000AC73E /* Default.png */; };
+		4EB912461656EEB7000AC73E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EB912451656EEB7000AC73E /* Default@2x.png */; };
+		4EB912481656EEB7000AC73E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EB912471656EEB7000AC73E /* Default-568h@2x.png */; };
+		4EB9124B1656EEB7000AC73E /* TweetMySteps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4EB912491656EEB7000AC73E /* TweetMySteps.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4EB9122B1656EEB7000AC73E /* TweetMySteps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TweetMySteps.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EB9122F1656EEB7000AC73E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4EB912311656EEB7000AC73E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4EB912331656EEB7000AC73E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4EB912351656EEB7000AC73E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4EB912391656EEB7000AC73E /* TweetMySteps-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TweetMySteps-Info.plist"; sourceTree = "<group>"; };
+		4EB9123B1656EEB7000AC73E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EB9123D1656EEB7000AC73E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4EB9123F1656EEB7000AC73E /* TweetMySteps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TweetMySteps-Prefix.pch"; sourceTree = "<group>"; };
+		4EB912401656EEB7000AC73E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4EB912411656EEB7000AC73E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4EB912431656EEB7000AC73E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4EB912451656EEB7000AC73E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4EB912471656EEB7000AC73E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4EB9124A1656EEB7000AC73E /* TweetMySteps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TweetMySteps.xcdatamodel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4EB912281656EEB7000AC73E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EB912301656EEB7000AC73E /* UIKit.framework in Frameworks */,
+				4EB912321656EEB7000AC73E /* Foundation.framework in Frameworks */,
+				4EB912341656EEB7000AC73E /* CoreGraphics.framework in Frameworks */,
+				4EB912361656EEB7000AC73E /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4EB912201656EEB7000AC73E = {
+			isa = PBXGroup;
+			children = (
+				4EB912371656EEB7000AC73E /* TweetMySteps */,
+				4EB9122E1656EEB7000AC73E /* Frameworks */,
+				4EB9122C1656EEB7000AC73E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4EB9122C1656EEB7000AC73E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4EB9122B1656EEB7000AC73E /* TweetMySteps.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4EB9122E1656EEB7000AC73E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4EB9122F1656EEB7000AC73E /* UIKit.framework */,
+				4EB912311656EEB7000AC73E /* Foundation.framework */,
+				4EB912331656EEB7000AC73E /* CoreGraphics.framework */,
+				4EB912351656EEB7000AC73E /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4EB912371656EEB7000AC73E /* TweetMySteps */ = {
+			isa = PBXGroup;
+			children = (
+				4EB912551656EF11000AC73E /* Images */,
+				4EB912541656EF06000AC73E /* Models */,
+				4EB912531656EEFC000AC73E /* Delegates */,
+				4EB912521656EEF0000AC73E /* ViewControllers */,
+				4EB912511656EEE7000AC73E /* Views */,
+				4EB912381656EEB7000AC73E /* Supporting Files */,
+			);
+			path = TweetMySteps;
+			sourceTree = "<group>";
+		};
+		4EB912381656EEB7000AC73E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4EB912391656EEB7000AC73E /* TweetMySteps-Info.plist */,
+				4EB9123A1656EEB7000AC73E /* InfoPlist.strings */,
+				4EB9123D1656EEB7000AC73E /* main.m */,
+				4EB9123F1656EEB7000AC73E /* TweetMySteps-Prefix.pch */,
+				4EB912431656EEB7000AC73E /* Default.png */,
+				4EB912451656EEB7000AC73E /* Default@2x.png */,
+				4EB912471656EEB7000AC73E /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4EB912511656EEE7000AC73E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4EB912521656EEF0000AC73E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4EB912531656EEFC000AC73E /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				4EB912401656EEB7000AC73E /* AppDelegate.h */,
+				4EB912411656EEB7000AC73E /* AppDelegate.m */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		4EB912541656EF06000AC73E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4EB912491656EEB7000AC73E /* TweetMySteps.xcdatamodeld */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4EB912551656EF11000AC73E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4EB9122A1656EEB7000AC73E /* TweetMySteps */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EB9124E1656EEB7000AC73E /* Build configuration list for PBXNativeTarget "TweetMySteps" */;
+			buildPhases = (
+				4EB912271656EEB7000AC73E /* Sources */,
+				4EB912281656EEB7000AC73E /* Frameworks */,
+				4EB912291656EEB7000AC73E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TweetMySteps;
+			productName = TweetMySteps;
+			productReference = 4EB9122B1656EEB7000AC73E /* TweetMySteps.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4EB912221656EEB7000AC73E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = MindAgile;
+			};
+			buildConfigurationList = 4EB912251656EEB7000AC73E /* Build configuration list for PBXProject "TweetMySteps" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4EB912201656EEB7000AC73E;
+			productRefGroup = 4EB9122C1656EEB7000AC73E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4EB9122A1656EEB7000AC73E /* TweetMySteps */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4EB912291656EEB7000AC73E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EB9123C1656EEB7000AC73E /* InfoPlist.strings in Resources */,
+				4EB912441656EEB7000AC73E /* Default.png in Resources */,
+				4EB912461656EEB7000AC73E /* Default@2x.png in Resources */,
+				4EB912481656EEB7000AC73E /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4EB912271656EEB7000AC73E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EB9123E1656EEB7000AC73E /* main.m in Sources */,
+				4EB912421656EEB7000AC73E /* AppDelegate.m in Sources */,
+				4EB9124B1656EEB7000AC73E /* TweetMySteps.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4EB9123A1656EEB7000AC73E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EB9123B1656EEB7000AC73E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4EB9124C1656EEB7000AC73E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4EB9124D1656EEB7000AC73E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4EB9124F1656EEB7000AC73E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TweetMySteps/TweetMySteps-Prefix.pch";
+				INFOPLIST_FILE = "TweetMySteps/TweetMySteps-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4EB912501656EEB7000AC73E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TweetMySteps/TweetMySteps-Prefix.pch";
+				INFOPLIST_FILE = "TweetMySteps/TweetMySteps-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4EB912251656EEB7000AC73E /* Build configuration list for PBXProject "TweetMySteps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EB9124C1656EEB7000AC73E /* Debug */,
+				4EB9124D1656EEB7000AC73E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4EB9124E1656EEB7000AC73E /* Build configuration list for PBXNativeTarget "TweetMySteps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EB9124F1656EEB7000AC73E /* Debug */,
+				4EB912501656EEB7000AC73E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4EB912491656EEB7000AC73E /* TweetMySteps.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4EB9124A1656EEB7000AC73E /* TweetMySteps.xcdatamodel */,
+			);
+			currentVersion = 4EB9124A1656EEB7000AC73E /* TweetMySteps.xcdatamodel */;
+			path = TweetMySteps.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 4EB912221656EEB7000AC73E /* Project object */;
+}
