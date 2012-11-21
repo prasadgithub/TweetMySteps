@@ -7,9 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "LeaderBoardViewController.h"
+#import "AboutViewController.h"
+#import "ProfileViewController.h"
+#import "SettingsViewController.h"
+#import "TweetViewController.h"
 
 @implementation AppDelegate
 
+@synthesize leaderBoardVC, tabBarController, homeNavController, aboutVC, profileVC, settingsVC, tweetVC;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -17,7 +23,27 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+   
+    leaderBoardVC=[[LeaderBoardViewController alloc] initWithNibName:@"LeaderBoardViewController" bundle:[NSBundle mainBundle]];
+    
+    aboutVC=[[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:[NSBundle mainBundle]];
+    
+    profileVC=[[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:[NSBundle mainBundle]];
+    
+    settingsVC=[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
+    
+    
+    
+    homeNavController=[[UINavigationController alloc] initWithRootViewController:leaderBoardVC];
+    
+    tabBarController=[[UITabBarController alloc] init];
+    
+    NSMutableArray *viewControllers=[NSMutableArray arrayWithObjects:homeNavController,profileVC, aboutVC, settingsVC, nil];
+    
+    tabBarController.viewControllers=viewControllers;
+    
+    self.window.rootViewController=tabBarController;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
