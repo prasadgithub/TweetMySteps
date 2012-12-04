@@ -10,6 +10,11 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UserProfileViewController.h"
+#import "UserProfileLifeTimeTableViewCell.h"
+#import "DetailViewController.h"
+#import "NoDisplayTableViewCell.h"
+
+
 
 @interface ProfileViewController ()
 
@@ -42,6 +47,7 @@
     
     [_scrollView setScrollEnabled:YES];
     
+
     [_scrollView setContentSize:CGSizeMake(320, 1000)];
     
     
@@ -52,13 +58,7 @@
 {
     [super viewDidLoad];
     
-    lifetimeTweetsArray=@[@"Lifetime1",@"Lifetime2",@"Lifetime3"];
 
-    vsTweetsArray=@[@"vs1",@"vs2",@"vs3"];
-    
-
-
-   // self.scrollView.contentSize=CGSizeMake(self.scrollView.frame.size.width, 1258.0f);
     [_profileSubView.layer setCornerRadius:5.0f];
     [_profileSubView.layer setBorderColor:[UIColor lightTextColor].CGColor];
     [_profileSubView.layer setBorderWidth:1.0f];
@@ -78,21 +78,27 @@
     
     [_statsView.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
     
+   
+    self.userDataArray=delegate.dataSource;
+
+    [self setValues];
+
     
     [self.tableView reloadData];
     
-    self.userDataArray=delegate.dataSource;
+    
+}
 
-    [self.scrollView addSubview:_profileSubView];
+-(void) viewWillAppear:(BOOL)animated{
     
-    [self.scrollView addSubview:_statsView];
-    
-    [self.scrollView addSubview:_segmentControl];
-    
-    [self.scrollView addSubview:self.tableView];
-    
+   
     [self setValues];
+    
 
+    
+    [self.tableView reloadData];
+    
+    
     
     
 }
@@ -102,11 +108,6 @@
     _profileNameLabel.text=[userDataArray objectForKey:@"name"];
     
     _twitterHandleLabel.text=[@"@" stringByAppendingString :[userDataArray objectForKey:@"screen_name"] ];
-    
-    
-    //UIColor *background = [[UIColor alloc] initWithPatternImage:[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[userDataArray objectForKey:@"profile_background_image_url_https"]]]]];
-
-   // _profileView.backgroundColor=background;
     
     _locationStringLabel.text=[userDataArray objectForKey:@"location"];
     
@@ -144,14 +145,44 @@
         
         _scrollView.scrollEnabled=NO;
 
+        
         _profileImageView.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]]];
         
     } else {
         
-        
-        _profileImageView.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]]];
+        data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]];
+                                            
+        _profileImageView.image=[[UIImage alloc] initWithData:data];
         
     }
+    
+    NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+    
+    NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
+    
+    NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
+    
+    
+    lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
+    
+
+    
+    NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+    
+    
+    NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
+    
+    NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
+    
+    vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
+    
+    noTweetMSG=@"No sweet versus action yet. Stay tuned...";
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -192,43 +223,180 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell=nil;
     
-    cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSArray *dataArray=nil;
     
     
-    if (indexPath.section==0) {
+    if (_segmentControl.selectedSegmentIndex==0) {
         
         
-        if (cell==nil) {
+        UserProfileLifeTimeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        
+        if (cell == nil) {
             
-            cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"UserProfileLifetimeTableViewCell" owner:nil options:nil];
+            
+            for (id obj in views) {
+                
+                if ([obj isKindOfClass:[UITableViewCell class]]) {
+                    cell=(UserProfileLifeTimeTableViewCell*) obj;
+                }
+                
+            }
+            
+        }
+        
+        dataArray=lifetimeTweetsArray;
+        
+        NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
+        
+        cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
+        
+        cell.profileTabPic.image=[UIImage imageWithData:data];
+        
+        cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
+        
+        cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+        
+        cell.timeLabel.text=[tweet objectForKey:@"TIME"];
+        
+        return cell;
+        
+        
+        
+    }else{
+        
+        dataArray=vsTweetsArray;
+        
+        if ([dataArray count]==0) {
+            
+            static NSString *CellIdentifier = @"Cell21";
+            
+            
+            NoDisplayTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            if (cell == nil) {
+                
+                NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"NoDisplayTableViewCell" owner:nil options:nil];
+                for (id obj in views) {
+                    
+                    if ([obj isKindOfClass:[UITableViewCell class]]) {
+                        cell=(NoDisplayTableViewCell*) obj;
+                    }
+                    
+                    
+                }
+                
+            }
+            
+            cell.message.text=noTweetMSG;
+            
+            return cell;
+            
+        }else{
+            
+            UserProfileLifeTimeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell 22"];
+            
+            
+            if (cell == nil) {
+                
+                NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"UserProfileLifetimeTableViewCell" owner:nil options:nil];
+                
+                for (id obj in views) {
+                    
+                    if ([obj isKindOfClass:[UITableViewCell class]]) {
+                        cell=(UserProfileLifeTimeTableViewCell*) obj;
+                    }
+                    
+                }
+                
+            }
+            
+            
+            
+            NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
+            
+            cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
+            
+            cell.profileTabPic.image=[UIImage imageWithData:data];
+            
+            cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
+            
+            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+            
+            return cell;
             
             
         }
         
-        
-        
     }
+
     
-    NSArray *dataArray=nil;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (_segmentControl.selectedSegmentIndex==0) {
         
-        dataArray=lifetimeTweetsArray;
+        NSMutableDictionary *tweetData=[lifetimeTweetsArray objectAtIndex:indexPath.row];
         
-    } else{
         
-        dataArray=vsTweetsArray;
+        if ([tweetData objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+            
+            
+            DetailViewController *detailVC=[[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:[NSBundle mainBundle]];
+            
+            detailVC.subTweetsArray=[tweetData objectForKey:@"SUBTWEETS"];
+            
+            
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+            
+        }
+
+        
+    }else{
+        
+        NSMutableDictionary *tweetData=[vsTweetsArray objectAtIndex:indexPath.row];
+        
+        
+        if ([tweetData objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+            
+            
+            DetailViewController *detailVC=[[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:[NSBundle mainBundle]];
+            
+            detailVC.subTweetsArray=[tweetData objectForKey:@"SUBTWEETS"];
+            
+            
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+            
+        }else{
+            
+            UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
+            
+            userProfileVC.username=[tweetData objectForKey:@"HNDL"];
+            
+            [self.navigationController pushViewController:userProfileVC animated:YES];
+            
+            
+            
+        }
+
+        
         
     }
     
-    cell.textLabel.text=dataArray[indexPath.row];
     
-
-    return cell;
     
 }
+
 
 
 

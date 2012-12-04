@@ -22,6 +22,10 @@
     
     NSMutableDictionary *userDataArray;
     
+    NSString *noTweetMSG;
+    
+    NSData *data;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *tenKStreakLabel;

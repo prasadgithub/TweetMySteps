@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UserProfileLifeTimeTableViewCell.h"
 #import "DetailViewController.h"
+#import "NoDisplayTableViewCell.h"
 
 @interface UserProfileViewController ()
 
@@ -49,8 +50,7 @@
     
     [super viewDidLoad];
     
-    vsTweetsArray=@[@"vs1",@"vs2",@"vs3"];
-    
+
     [_profileView.layer setCornerRadius:5.0f];
     [_profileView.layer setBorderColor:[UIColor lightTextColor].CGColor];
     [_profileView.layer setBorderWidth:1.0f];
@@ -127,9 +127,7 @@
     
     
     NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:username];
-    
-    NSLog(@"URL %@",lifetimeTweetsURLString);
-    
+
     NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
@@ -138,9 +136,20 @@
     
     
    lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
+   
+       
+    NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:username];
     
-    NSLog(@"Tweets %@",lifetimeTweetsArray);
+
+    NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
+    NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
+    
+    NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
+
+    vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
+    
+    noTweetMSG=@"No sweet versus action yet. Stay tuned...";
     
 }
 
@@ -169,8 +178,12 @@
         
         
     }else{
-        
-        return [vsTweetsArray count];
+        if ([vsTweetsArray count]>0) {
+ 
+            return [vsTweetsArray count];
+            
+        }else
+            return 1;
         
     }
     
@@ -183,9 +196,16 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    UserProfileLifeTimeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    NSArray *dataArray=nil;
     
 
+    if (_segmentControl.selectedSegmentIndex==0) {
+        
+        
+        UserProfileLifeTimeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        
         if (cell == nil) {
             
             NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"UserProfileLifetimeTableViewCell" owner:nil options:nil];
@@ -200,33 +220,91 @@
             
         }
         
-
-    NSArray *dataArray=nil;
-    
-    if (_segmentControl.selectedSegmentIndex==0) {
+         dataArray=lifetimeTweetsArray;
         
-        dataArray=lifetimeTweetsArray;
+        NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
         
-    } else{
+        cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
+        
+        cell.profileTabPic.image=[UIImage imageWithData:data];
+        
+        cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
+        
+        cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+        
+        cell.timeLabel.text=[tweet objectForKey:@"TIME"];
+        
+        return cell;
+        
+        
+        
+    }else{
         
         dataArray=vsTweetsArray;
         
+        if ([dataArray count]==0) {
+            
+            static NSString *CellIdentifier = @"Cell21";
+            
+            
+            NoDisplayTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            if (cell == nil) {
+                
+                NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"NoDisplayTableViewCell" owner:nil options:nil];
+                for (id obj in views) {
+                    
+                    if ([obj isKindOfClass:[UITableViewCell class]]) {
+                        cell=(NoDisplayTableViewCell*) obj;
+                    }
+                    
+                    
+                }
+                
+            }
+            
+            cell.message.text=noTweetMSG;
+            
+            return cell;
+            
+        }else{
+            
+            UserProfileLifeTimeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell 22"];
+            
+            
+            if (cell == nil) {
+                
+                NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"UserProfileLifetimeTableViewCell" owner:nil options:nil];
+                
+                for (id obj in views) {
+                    
+                    if ([obj isKindOfClass:[UITableViewCell class]]) {
+                        cell=(UserProfileLifeTimeTableViewCell*) obj;
+                    }
+                    
+                }
+                
+            }
+            
+            
+            
+            NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
+            
+            cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
+            
+            cell.profileTabPic.image=[UIImage imageWithData:data];
+            
+            cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
+            
+            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+            
+            return cell;
+   
+            
+        }
+        
     }
-    
-    NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
-    
-    cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
-    
-    cell.profileTabPic.image=[UIImage imageWithData:data];
-    
-    cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
-    
-    cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
-    
-    cell.timeLabel.text=[tweet objectForKey:@"TIME"];
-    
-    return cell;
-    
+
 }
 
 #pragma mark - Table view delegate

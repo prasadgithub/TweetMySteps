@@ -12,6 +12,7 @@
     
     NSMutableArray *subTweetsArray;
     NSData *imageData;
+    NSString *userName;
     
 }
 

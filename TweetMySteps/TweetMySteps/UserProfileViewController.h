@@ -24,6 +24,8 @@
     
     NSMutableDictionary *userDataArray;
     
+    NSString *noTweetMSG;
+    
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *memberSinceDate;

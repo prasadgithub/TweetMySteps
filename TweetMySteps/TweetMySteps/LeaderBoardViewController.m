@@ -11,10 +11,7 @@
 #import "NoDisplayTableViewCell.h"
 #import "TweetViewController.h"
 
-NSString * const BannerViewActionWillBegin = @"BannerViewActionWillBegin";
-NSString * const BannerViewActionDidFinish = @"BannerViewActionDidFinish";
-
-@interface LeaderBoardViewController ()<ADBannerViewDelegate>
+@interface LeaderBoardViewController ()
 
 @end
 
@@ -58,18 +55,7 @@ NSString * const BannerViewActionDidFinish = @"BannerViewActionDidFinish";
     [refreshControl addTarget:self action:@selector(refreshList) forControlEvents:UIControlEventValueChanged];
     
     self.refreshControl = refreshControl;
-    
-   /* self.navigationItem.prompt=@"";
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"prompt.png"]];
-    
-    imageView.frame = CGRectMake(0, 0, 320, 50);
-    
-    [self.navigationController.navigationBar addSubview:imageView];
-    
-    self.navigationItem.titleView = _segmentControl;
-   */
-    
+ 
     dispatch_queue_t downloadQueue=dispatch_queue_create("Download Queue",NULL);
     
     dispatch_async(downloadQueue, ^{
@@ -87,6 +73,7 @@ NSString * const BannerViewActionDidFinish = @"BannerViewActionDidFinish";
     
   }
 
+
 -(void) viewWillAppear:(BOOL)animated{
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -98,7 +85,6 @@ NSString * const BannerViewActionDidFinish = @"BannerViewActionDidFinish";
     
     
 }
-
 
 -(void) loadData{
     
@@ -137,9 +123,7 @@ NSString * const BannerViewActionDidFinish = @"BannerViewActionDidFinish";
     
     todayTweetsArray=[NSJSONSerialization JSONObjectWithData:todayData options:kNilOptions error:&error];
     
-    
-    NSLog(@" Today Tweets %@",todayTweetsArray);
-    
+
     NSString *noTweetString=@"http://m.tweetmysteps.com/displayNoTweetJSON.php";
     
     NSString *noTweetURLEncoded = [noTweetString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -580,7 +564,7 @@ NSString * const BannerViewActionDidFinish = @"BannerViewActionDidFinish";
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 35)]; // x,y,width,height
 
-  //  headerView.backgroundColor=[UIColor lightGrayColor];
+
     
     [_segmentControl setFrame:CGRectMake(20.0, 5, 280.0, 30.0)];
     

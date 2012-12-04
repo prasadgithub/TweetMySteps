@@ -14,6 +14,8 @@
     
     NSMutableArray *subTweets;
     
+    NSData *data;
+    
 }
 
 

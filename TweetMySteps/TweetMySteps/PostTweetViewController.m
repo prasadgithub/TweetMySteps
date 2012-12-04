@@ -9,6 +9,7 @@
 #import "PostTweetViewController.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+
 @interface PostTweetViewController ()
 
 @end
@@ -70,6 +71,25 @@
 
     [tweetButton setTintColor:[UIColor lightGrayColor]];
       
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    
+    charLeft=80;
+    
+    _stepCountLabel.text=[NSString stringWithFormat:@"%d",charLeft];
+
+    
+    [self.tableView reloadData];
+    
+    _stepsTextField.text=@"";
+    
+    comment.text=@"Comment";
+    
+    [comment setTextColor:[UIColor lightGrayColor]];
+    
+    
+    
 }
 
 -(void) hideKeyBoard:(id) sender{

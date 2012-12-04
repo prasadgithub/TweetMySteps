@@ -12,6 +12,8 @@
 
 #import "UserProfileViewController.h"
 
+#import "UserProfileLifeTimeTableViewCell.h"
+
 @interface TweetViewController ()
 
 @end
@@ -57,7 +59,9 @@
     
     _twitterHandleLabel.text=[@"@" stringByAppendingString:[_tweet objectForKey:@"HNDL"]] ;
     
-    _profileImage.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[_tweet objectForKey:@"IMG"]]]];
+    data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[_tweet objectForKey:@"IMG"]] ];
+    
+    _profileImage.image=[[UIImage alloc] initWithData:data];
     
     _stepCountLabel.text=[_tweet objectForKey:@"STEPS"];
     
@@ -83,6 +87,25 @@
     
   
 }
+
+
+-(void) viewWillAppear:(BOOL)animated{
+    
+    
+    
+    if ([_tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+        
+        
+        subTweets=[_tweet objectForKey:@"SUBTWEETS"];
+        
+        [self.tableView reloadData];
+        
+        
+    }
+
+    
+}
+
 
 - (void)tapDetected:(UITapGestureRecognizer *)tapRecognizer
 {
@@ -122,25 +145,38 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell=nil;
-    
-    cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UserProfileLifeTimeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     
-    if (indexPath.section==0) {
+    if (cell == nil) {
         
+        NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"UserProfileLifetimeTableViewCell" owner:nil options:nil];
         
-        if (cell==nil) {
+        for (id obj in views) {
             
-            cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            
+            if ([obj isKindOfClass:[UITableViewCell class]]) {
+                cell=(UserProfileLifeTimeTableViewCell*) obj;
+            }
             
         }
         
-        
-        
     }
     
+    
+    
+    NSMutableDictionary *tweet=[subTweets objectAtIndex:indexPath.row];
+    
+    cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
+    
+    cell.profileTabPic.image=[UIImage imageWithData:data];
+    
+    cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
+    
+    cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+    
+    cell.timeLabel.text=[tweet objectForKey:@"TIME"];
+    
+
 
     
     return cell;
@@ -154,6 +190,14 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    
+    UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
+    
+    userProfileVC.username=[_tweet objectForKey:@"HNDL"];
+    
+    [self.navigationController pushViewController:userProfileVC animated:YES];
+    
+    
 }
 
 

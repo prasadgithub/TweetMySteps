@@ -9,6 +9,8 @@
 #import "DetailViewController.h"
 #import "DetailTableViewCell.h"
 
+#import "UserProfileViewController.h"
+
 @interface DetailViewController ()
 
 @end
@@ -21,7 +23,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+
+        
     }
     return self;
 }
@@ -34,8 +37,20 @@
     
     imageData= [NSData dataWithContentsOfURL:[NSURL URLWithString:[tweetDictionary objectForKey:@"IMG"]]];
     
+    userName=[tweetDictionary objectForKey:@"HNDL"];
+    
     [self.tableView reloadData];
 
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    
+    
+    [self.tableView reloadData];
+    
+
+    
+    
 }
 
 
@@ -152,6 +167,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
+    
+    userProfileVC.username=userName;
+    
+    [self.navigationController pushViewController:userProfileVC animated:YES];
+    
 }
 
 @end

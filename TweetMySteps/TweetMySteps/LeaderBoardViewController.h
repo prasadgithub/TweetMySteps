@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iAd/iAd.h>
 
-extern NSString * const BannerViewActionWillBegin;
-extern NSString * const BannerViewActionDidFinish;
 @interface LeaderBoardViewController : UITableViewController{
     
     UIRefreshControl *refreshControl;
@@ -28,8 +25,6 @@ extern NSString * const BannerViewActionDidFinish;
 }
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentControl;
-
-
 
 - (IBAction)segmentChanged:(id)sender;
 
