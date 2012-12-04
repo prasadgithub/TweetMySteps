@@ -12,10 +12,13 @@
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
 #import "TweetViewController.h"
+#import "PostTweetViewController.h"
+
 
 @implementation AppDelegate
 
-@synthesize leaderBoardVC, tabBarController, homeNavController, aboutVC, profileVC, settingsVC, tweetVC;
+@synthesize dataSource;
+
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -24,29 +27,113 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
    
-    leaderBoardVC=[[LeaderBoardViewController alloc] initWithNibName:@"LeaderBoardViewController" bundle:[NSBundle mainBundle]];
+    _leaderBoardVC=[[LeaderBoardViewController alloc] initWithNibName:@"LeaderBoardViewController" bundle:[NSBundle mainBundle]];
     
-    aboutVC=[[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:[NSBundle mainBundle]];
+    _postTweetVC=[[PostTweetViewController alloc] initWithNibName:@"PostTweetViewController" bundle:[NSBundle mainBundle]];
     
-    profileVC=[[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:[NSBundle mainBundle]];
+    _aboutVC=[[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:[NSBundle mainBundle]];
     
-    settingsVC=[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
+    _profileVC=[[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:[NSBundle mainBundle]];
+    
+    _settingsVC=[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
     
     
+    _homeNavController=[[UINavigationController alloc] initWithRootViewController:_leaderBoardVC];
     
-    homeNavController=[[UINavigationController alloc] initWithRootViewController:leaderBoardVC];
+    _profileNavController=[[UINavigationController alloc] initWithRootViewController:_profileVC];
     
-    tabBarController=[[UITabBarController alloc] init];
+    _postTweetNavController=[[UINavigationController alloc] initWithRootViewController:_postTweetVC];
     
-    NSMutableArray *viewControllers=[NSMutableArray arrayWithObjects:homeNavController,profileVC, aboutVC, settingsVC, nil];
+    _aboutNavController=[[UINavigationController alloc] initWithRootViewController:_aboutVC];
     
-    tabBarController.viewControllers=viewControllers;
     
-    self.window.rootViewController=tabBarController;
+    [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
+    
+    _tabBarController=[[UITabBarController alloc] init];
+    
+    
+    NSMutableArray *viewControllers=[NSMutableArray arrayWithObjects:_homeNavController
+                                     ,_profileNavController,_postTweetNavController, _aboutNavController, nil];
+    
+    _tabBarController.viewControllers=viewControllers;
+    
+    self.window.rootViewController=_tabBarController;
+    
+    dispatch_queue_t twitterFetch=dispatch_queue_create("Twitter Fetch Queue", NULL);
+    
+    dispatch_async(twitterFetch, ^{
+       
+        [self getTwitterAccount];
+        
+    });
+    
+
+    _profileVC.delegate=self;
+    _postTweetVC.delegate=self;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+-(void) getTwitterAccount{
+    
+    
+    ACAccountStore *account = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
+                                  ACAccountTypeIdentifierTwitter];
+    
+    [account requestAccessToAccountsWithType:accountType options:nil
+                                  completion:^(BOOL granted, NSError *error)
+     {
+         if (granted == YES)
+         {
+             NSArray *arrayOfAccounts = [account
+                                         accountsWithAccountType:accountType];
+             
+             if ([arrayOfAccounts count] > 0)
+             {
+                 ACAccount *twitterAccount = [arrayOfAccounts lastObject];
+                  
+                 NSURL *requestURL = [NSURL
+                                      URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
+                 
+                 
+                 NSMutableDictionary *parameters =
+                 [[NSMutableDictionary alloc] init];
+                 [parameters setObject:@"20" forKey:@"skip_status"];
+                 [parameters setObject:@"false" forKey:@"include_entities"];
+                 
+                 SLRequest *postRequest = [SLRequest
+                                           requestForServiceType:SLServiceTypeTwitter
+                                           requestMethod:SLRequestMethodGET
+                                           URL:requestURL parameters:parameters];
+                 
+                 postRequest.account = twitterAccount;
+                 
+                 [postRequest performRequestWithHandler:^(NSData *responseData,
+                                                          NSHTTPURLResponse *urlResponse, NSError *error)
+                  {
+                      
+                      self.dataSource = [NSJSONSerialization
+                                    JSONObjectWithData:responseData
+                                    options:NSJSONReadingMutableLeaves
+                                    error:&error];
+                      
+                      if (self.dataSource.count != 0) {
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              
+                                 
+                              
+                          });
+                      }
+                      
+                  }];
+             }
+         }
+     }];
+    
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

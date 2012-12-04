@@ -20,6 +20,9 @@
     if (self) {
         
        self.title=@"About";
+        
+        self.tabBarItem.image=[UIImage imageNamed:@"info.png"];
+
     }
     return self;
 }

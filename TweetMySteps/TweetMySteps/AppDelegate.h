@@ -7,30 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iAd/iAd.h>
 
 @class LeaderBoardViewController;
 @class ProfileViewController;
 @class AboutViewController;
 @class SettingsViewController;
 @class TweetViewController;
+@class PostTweetViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate, ADBannerViewDelegate>{
     
-    UITabBarController *tabBarController;
+
     
-    UINavigationController *homeNavController;
-    
-    LeaderBoardViewController *leaderBoardVC;
-    
-    ProfileViewController *profileVC;
-    
-    AboutViewController *aboutVC;
-    
-    SettingsViewController *settingsVC;
-    
-    TweetViewController *tweetVC;
+    NSMutableDictionary *dataSource;
     
 }
+@property (strong, nonatomic)     NSMutableDictionary *dataSource;
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -40,12 +33,19 @@
 @property (retain, nonatomic) UITabBarController *tabBarController;
 @property (retain, nonatomic) UINavigationController *homeNavController;
 
+@property (retain, nonatomic) UINavigationController *profileNavController;
+
+@property (retain, nonatomic) UINavigationController *postTweetNavController;
+
+@property (retain, nonatomic) UINavigationController *aboutNavController;
+
+
 @property (retain, nonatomic) LeaderBoardViewController *leaderBoardVC;
 @property (retain, nonatomic) ProfileViewController *profileVC;
 @property (retain, nonatomic) AboutViewController *aboutVC;
 @property (retain, nonatomic) SettingsViewController *settingsVC;
 @property (retain, nonatomic) TweetViewController *tweetVC;
-
+@property (retain, nonatomic) PostTweetViewController *postTweetVC;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
