@@ -516,9 +516,12 @@
             NSMutableDictionary *tweet=(NSMutableDictionary *)todayTweetsArray[indexPath.row];
             
             tweetVC.tweet=tweet;
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
             
             [self.navigationController pushViewController:tweetVC animated:YES];
+                
+            });
             
         }
         
@@ -534,8 +537,12 @@
             
             tweetVC.tweet=tweet;
             
-            
-            [self.navigationController pushViewController:tweetVC animated:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                [self.navigationController pushViewController:tweetVC animated:YES];
+                
+            });
             
             
         }
@@ -550,10 +557,13 @@
         
         
             tweetVC.tweet=tweet;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                [self.navigationController pushViewController:tweetVC animated:YES];
+                
+            });
             
-
-            [self.navigationController pushViewController:tweetVC animated:YES];
-         
        }
     }
     

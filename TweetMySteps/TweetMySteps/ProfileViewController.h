@@ -26,6 +26,8 @@
     
     NSData *data;
     
+    NSArray *profileDataArray;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *tenKStreakLabel;

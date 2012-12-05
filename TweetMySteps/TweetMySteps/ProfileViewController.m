@@ -59,6 +59,15 @@
     [super viewDidLoad];
     
 
+    _profileSubView.hidden=YES;
+    
+    _statsView.hidden=YES;
+    
+    _tableView.hidden=YES;
+    
+    _segmentControl.hidden=YES;
+    
+    
     [_profileSubView.layer setCornerRadius:5.0f];
     [_profileSubView.layer setBorderColor:[UIColor lightTextColor].CGColor];
     [_profileSubView.layer setBorderWidth:1.0f];
@@ -85,14 +94,77 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    
    
-    [self setValues];
     
+    
+    dispatch_queue_t downloadQueue=dispatch_queue_create("Download Queue",NULL);
+    
+    dispatch_async(downloadQueue, ^{
+    
+        
+        [self getValues];
+        
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        
+        [self setValues];
 
     
+    
+    });
     [self.tableView reloadData];
     
+    
+    
+    
+}
+
+-(void) getValues{
+    
+    NSError *error;
+    
+    
+    NSString *profileURLString=[@"http://m.tweetmysteps.com/profileInfoServiceJSON.php?userName=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+    
+    
+    NSString *profileURLEncoded = [profileURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *profileURL=[NSURL URLWithString:profileURLEncoded];
+    
+    
+    NSData *profileData=[NSData dataWithContentsOfURL:profileURL];
+    
+    
+    profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
+    
+    
+    NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+    
+    NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
+    
+    NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
+    
+    
+    lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
+    
+    
+    
+    NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+    
+    
+    NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
+    
+    NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
+    
+    vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
+    
+    noTweetMSG=@"No sweet versus action yet. Stay tuned...";
     
     
     
@@ -101,6 +173,8 @@
 -(void) setValues{
     
     if ([userDataArray count]>0) {
+        
+        _profileSubView.hidden=NO;
         
         _profileNameLabel.text=[userDataArray objectForKey:@"name"];
         
@@ -116,30 +190,10 @@
         
         _followingCountLabel.text=[NSString stringWithFormat:@"%@",[userDataArray objectForKey:@"friends_count"]];
         
-        NSError *error;
-        
-        
-        
-        NSString *profileURLString=[@"http://m.tweetmysteps.com/profileInfoServiceJSON.php?userName=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
-        
-        NSString *profileURLEncoded = [profileURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSURL *profileURL=[NSURL URLWithString:profileURLEncoded];
-        
-        NSData *profileData=[NSData dataWithContentsOfURL:profileURL];
-        
-        
-        NSArray *profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
-        
-        
+       
         if ([profileDataArray count]==0) {
             
-            _statsView.hidden=YES;
-            
-            _tableView.hidden=YES;
-            
-            _segmentControl.hidden=YES;
-            
+           
             _scrollView.scrollEnabled=NO;
             
             
@@ -151,34 +205,18 @@
             
             _profileImageView.image=[[UIImage alloc] initWithData:data];
             
+            
+            _statsView.hidden=NO;
+            
+            _tableView.hidden=NO;
+            
+            _segmentControl.hidden=NO;
+            
+            
+            
         }
         
-        NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
-        
-        NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
-        
-        NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
-        
-        
-        lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
-        
-        
-        
-        NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
-        
-        
-        NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
-        
-        NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
-        
-        vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
-        
-        noTweetMSG=@"No sweet versus action yet. Stay tuned...";
-        
+         
 
         
     }else{
@@ -191,13 +229,7 @@
         
         _profileSubView.hidden=YES;
         
-        _statsView.hidden=YES;
-        
-        _tableView.hidden=YES;
-        
-        _segmentControl.hidden=YES;
-        
-        
+
         
         
     }
