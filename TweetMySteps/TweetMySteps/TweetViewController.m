@@ -170,7 +170,7 @@
     
     cell.profileTabPic.image=[UIImage imageWithData:data];
     
-    cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
+    cell.stepCountLabel.text=[NSString stringWithFormat:@"%@",[tweet objectForKey:@"STEPS"]];
     
     cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
     

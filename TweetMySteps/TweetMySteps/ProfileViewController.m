@@ -81,11 +81,6 @@
    
     self.userDataArray=delegate.dataSource;
 
-    [self setValues];
-
-    
-    [self.tableView reloadData];
-    
     
 }
 
@@ -104,84 +99,123 @@
 }
 
 -(void) setValues{
-     
-    _profileNameLabel.text=[userDataArray objectForKey:@"name"];
     
-    _twitterHandleLabel.text=[@"@" stringByAppendingString :[userDataArray objectForKey:@"screen_name"] ];
-    
-    _locationStringLabel.text=[userDataArray objectForKey:@"location"];
-    
-    _descTextView.text=[userDataArray objectForKey:@"description"];
-    
-    _tweetCountLabel.text=[NSString stringWithFormat:@"%@",[userDataArray objectForKey:@"statuses_count"]];
-    
-    _followersCountLabel.text=[NSString stringWithFormat:@"%@",[userDataArray objectForKey:@"followers_count"]];
-    
-    _followingCountLabel.text=[NSString stringWithFormat:@"%@",[userDataArray objectForKey:@"friends_count"]];
-    
-    NSError *error;
-    
-    
-    
-    NSString *profileURLString=[@"http://m.tweetmysteps.com/profileInfoServiceJSON.php?userName=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
-    
-    NSString *profileURLEncoded = [profileURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSURL *profileURL=[NSURL URLWithString:profileURLEncoded];
-    
-    NSData *profileData=[NSData dataWithContentsOfURL:profileURL];
-    
-    
-    NSArray *profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
- 
-    
-    if ([profileDataArray count]==0) {
+    if ([userDataArray count]>0) {
+        
+        _profileNameLabel.text=[userDataArray objectForKey:@"name"];
+        
+        _twitterHandleLabel.text=[@"@" stringByAppendingString :[userDataArray objectForKey:@"screen_name"] ];
+        
+        _locationStringLabel.text=[userDataArray objectForKey:@"location"];
+        
+        _descTextView.text=[userDataArray objectForKey:@"description"];
+        
+        _tweetCountLabel.text=[NSString stringWithFormat:@"%@",[userDataArray objectForKey:@"statuses_count"]];
+        
+        _followersCountLabel.text=[NSString stringWithFormat:@"%@",[userDataArray objectForKey:@"followers_count"]];
+        
+        _followingCountLabel.text=[NSString stringWithFormat:@"%@",[userDataArray objectForKey:@"friends_count"]];
+        
+        NSError *error;
+        
+        
+        
+        NSString *profileURLString=[@"http://m.tweetmysteps.com/profileInfoServiceJSON.php?userName=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+        
+        NSString *profileURLEncoded = [profileURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSURL *profileURL=[NSURL URLWithString:profileURLEncoded];
+        
+        NSData *profileData=[NSData dataWithContentsOfURL:profileURL];
+        
+        
+        NSArray *profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
+        
+        
+        if ([profileDataArray count]==0) {
+            
+            _statsView.hidden=YES;
+            
+            _tableView.hidden=YES;
+            
+            _segmentControl.hidden=YES;
+            
+            _scrollView.scrollEnabled=NO;
+            
+            
+            _profileImageView.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]]];
+            
+        } else {
+            
+            data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]];
+            
+            _profileImageView.image=[[UIImage alloc] initWithData:data];
+            
+        }
+        
+        NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+        
+        NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
+        
+        NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
+        
+        
+        lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
+        
+        
+        
+        NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
+        
+        
+        NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
+        
+        NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
+        
+        vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
+        
+        noTweetMSG=@"No sweet versus action yet. Stay tuned...";
+        
+
+        
+    }else{
+        
+        
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TMS: Unable to access Twitter Account" message:@"Please configure Twitter account in the Settings App." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK",nil];
+        
+        [alert show];
+        
+        
+        _profileSubView.hidden=YES;
         
         _statsView.hidden=YES;
         
-         _tableView.hidden=YES;
+        _tableView.hidden=YES;
         
         _segmentControl.hidden=YES;
         
-        _scrollView.scrollEnabled=NO;
-
         
-        _profileImageView.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]]];
         
-    } else {
-        
-        data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]];
-                                            
-        _profileImageView.image=[[UIImage alloc] initWithData:data];
         
     }
+     
     
-    NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
-    
-    NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
-    
-    NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
-    
-    
-    lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
-    
+}
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 
     
-    NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]];
-    
-    
-    NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
-    
-    NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
-    
-    vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
-    
-    noTweetMSG=@"No sweet versus action yet. Stay tuned...";
+    if (buttonIndex==1) {
 
+        
+        NSURL*url=[NSURL URLWithString:@"prefs:root=TWITTER"];
+        
+        [[UIApplication sharedApplication] openURL:url];
+        
+    }
     
 }
 

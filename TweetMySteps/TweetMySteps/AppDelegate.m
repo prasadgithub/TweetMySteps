@@ -63,6 +63,7 @@
     
     dispatch_async(twitterFetch, ^{
        
+
         [self getTwitterAccount];
         
     });
@@ -109,6 +110,7 @@
                                            requestMethod:SLRequestMethodGET
                                            URL:requestURL parameters:parameters];
                  
+
                  postRequest.account = twitterAccount;
                  
                  [postRequest performRequestWithHandler:^(NSData *responseData,
@@ -121,14 +123,10 @@
                                     error:&error];
                       
                       if (self.dataSource.count != 0) {
-                          dispatch_async(dispatch_get_main_queue(), ^{
-                              
-                                 
-                              
-                          });
+                       
+                
                       }
-                      
-                  }];
+                }];
              }
          }
      }];

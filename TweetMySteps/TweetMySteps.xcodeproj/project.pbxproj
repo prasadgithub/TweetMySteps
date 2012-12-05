@@ -59,6 +59,8 @@
 		4EC6764D1669B95700D2BF32 /* list-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC6764B1669B95700D2BF32 /* list-mask.png */; };
 		4EC6764E1669B95700D2BF32 /* list-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC6764C1669B95700D2BF32 /* list-mask@2x.png */; };
 		4EC676581669CEFD00D2BF32 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC676571669CEFD00D2BF32 /* iAd.framework */; };
+		4EF75C4A166F4488003EA3E2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE8F0CD166F38E90039866F /* Icon.png */; };
+		4EF75C4B166F448E003EA3E2 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE8F0D0166F38F30039866F /* Icon@2x.png */; };
 		4EFBA7FC1667601100B2101D /* LeaderBoardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBA7FB1667601100B2101D /* LeaderBoardTableViewCell.m */; };
 		4EFBA8001667605300B2101D /* LeaderBoardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EFBA7FF1667605300B2101D /* LeaderBoardTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -131,6 +133,8 @@
 		4EC6764B1669B95700D2BF32 /* list-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-mask.png"; sourceTree = "<group>"; };
 		4EC6764C1669B95700D2BF32 /* list-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-mask@2x.png"; sourceTree = "<group>"; };
 		4EC676571669CEFD00D2BF32 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		4EE8F0CD166F38E90039866F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		4EE8F0D0166F38F30039866F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		4EFBA7FA1667601100B2101D /* LeaderBoardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderBoardTableViewCell.h; sourceTree = "<group>"; };
 		4EFBA7FB1667601100B2101D /* LeaderBoardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderBoardTableViewCell.m; sourceTree = "<group>"; };
 		4EFBA7FF1667605300B2101D /* LeaderBoardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderBoardTableViewCell.xib; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 		4EB912551656EF11000AC73E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4EE8F0D0166F38F30039866F /* Icon@2x.png */,
+				4EE8F0CD166F38E90039866F /* Icon.png */,
 				4EC6764B1669B95700D2BF32 /* list-mask.png */,
 				4EC6764C1669B95700D2BF32 /* list-mask@2x.png */,
 				4E6177E11666B1F6000F168E /* icon.png */,
@@ -393,6 +399,8 @@
 				4E3EAD59166CC3D100F92013 /* UserProfileLifetimeTableViewCell.xib in Resources */,
 				4E3EAD5E166CD34000F92013 /* DetailViewController.xib in Resources */,
 				4E3EAD63166CD55700F92013 /* DetailTableViewCell.xib in Resources */,
+				4EF75C4A166F4488003EA3E2 /* Icon.png in Resources */,
+				4EF75C4B166F448E003EA3E2 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
