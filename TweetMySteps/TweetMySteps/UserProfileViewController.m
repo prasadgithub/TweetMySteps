@@ -36,11 +36,28 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    _scrollView.delegate=self;
+
+    dispatch_queue_t downloadQueue=dispatch_queue_create("Download Queue",NULL);
     
-    [_scrollView setScrollEnabled:YES];
     
-    [_scrollView setContentSize:CGSizeMake(320, 900)];
+    dispatch_async(downloadQueue, ^{
+        
+        
+        [self getValues];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            
+            [self setValues];
+            
+            [self.tableView reloadData];
+            
+            
+        });
+        
+        
+    });
+    
     
 }
 
@@ -50,7 +67,11 @@
     
     [super viewDidLoad];
     
-
+    _profileView.hidden=YES;
+    
+    _statsView.hidden=YES;
+    
+    
     [_profileView.layer setCornerRadius:5.0f];
     [_profileView.layer setBorderColor:[UIColor lightTextColor].CGColor];
     [_profileView.layer setBorderWidth:1.0f];
@@ -69,16 +90,9 @@
     
     [_statsView.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
     
-    [self setValues];
     
-    [self.tableView reloadData];
-
 }
-
-
-
-
--(void) setValues{
+-(void) getValues{
     
     
     NSError *error;
@@ -92,9 +106,51 @@
     NSData *profileData=[NSData dataWithContentsOfURL:profileURL];
     
     
-    NSArray *profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
+    profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
     
+
+    
+    NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:username];
+    
+    NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
+    
+    NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
+    
+    
+    lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
+    
+    
+    NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:username];
+    
+    
+    NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
+    
+    NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
+    
+    vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
+    
+    noTweetMSG=@"No sweet versus action yet. Stay tuned...";
+    
+      
+    
+}
+
+
+-(void) setValues{
+    
+ 
+    _profileView.hidden=NO;
+    
+    _statsView.hidden=NO;
+    
+
+
     NSMutableDictionary *userDataDictionary=[profileDataArray lastObject];
+    
     
     _nameLabel.text=[userDataDictionary objectForKey:@"name"];
     
@@ -125,32 +181,7 @@
     
     _vsWinsLabel.text=[userDataDictionary objectForKey:@"vsWins"];
     
-    
-    NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:username];
 
-    NSString *lifetimeTweetsURLEncoded = [lifetimeTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSURL *lifetimeTweetsURL=[NSURL URLWithString:lifetimeTweetsURLEncoded];
-    
-    NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
-    
-    
-   lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
-   
-       
-    NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:username];
-    
-
-    NSString *vsTweetsURLEncoded = [vsTweetsURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSURL *vsTweetsURL=[NSURL URLWithString:vsTweetsURLEncoded];
-    
-    NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
-
-    vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
-    
-    noTweetMSG=@"No sweet versus action yet. Stay tuned...";
-    
 }
 
 
@@ -306,6 +337,40 @@
     }
 
 }
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 450)]; // x,y,width,height
+    
+    [_profileView setFrame:CGRectMake(10.0, 20.0, 300, 153)];
+    
+    [_statsView setFrame:CGRectMake(10.0, 215.0, 300, 200)];
+    
+    
+    [_segmentControl setFrame:CGRectMake(20.0, 425, 280.0, 30.0)];
+    
+    
+    [headerView addSubview:_profileView];
+    
+    
+    [headerView addSubview:_statsView];
+    
+    
+    [headerView addSubview:_segmentControl];
+    
+    return headerView;
+    
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 470.0f;
+    
+}
+
+
 
 #pragma mark - Table view delegate
 

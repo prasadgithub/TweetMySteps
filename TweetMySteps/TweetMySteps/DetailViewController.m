@@ -33,6 +33,7 @@
 {
     [super viewDidLoad];
     
+
     NSMutableDictionary *tweetDictionary=[subTweetsArray lastObject];
     
     imageData= [NSData dataWithContentsOfURL:[NSURL URLWithString:[tweetDictionary objectForKey:@"IMG"]]];

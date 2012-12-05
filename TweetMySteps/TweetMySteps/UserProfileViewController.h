@@ -25,7 +25,8 @@
     NSMutableDictionary *userDataArray;
     
     NSString *noTweetMSG;
-    
+
+    NSArray *profileDataArray;
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *memberSinceDate;
@@ -65,9 +66,6 @@
 
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
-
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 
 @property (strong, nonatomic) IBOutlet UIView *profileView;

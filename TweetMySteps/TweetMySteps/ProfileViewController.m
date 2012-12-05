@@ -96,7 +96,8 @@
 -(void) viewWillAppear:(BOOL)animated{
    
     
-    
+    if ([userDataArray count]>0) {
+        
     dispatch_queue_t downloadQueue=dispatch_queue_create("Download Queue",NULL);
     
     dispatch_async(downloadQueue, ^{
@@ -110,14 +111,27 @@
         
         
         [self setValues];
-
+        
+        [self.tableView reloadData];
+        
     
     
     });
-    [self.tableView reloadData];
-    
-    
-    
+
+    }else{
+        
+        
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TMS: Unable to access Twitter Account" message:@"Please configure Twitter account in the Settings App." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK",nil];
+        
+        [alert show];
+        
+        
+        _profileSubView.hidden=YES;
+        
+        
+        
+        
+    }
     
 }
 
@@ -172,7 +186,6 @@
 
 -(void) setValues{
     
-    if ([userDataArray count]>0) {
         
         _profileSubView.hidden=NO;
         
@@ -219,20 +232,7 @@
          
 
         
-    }else{
-        
-        
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TMS: Unable to access Twitter Account" message:@"Please configure Twitter account in the Settings App." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK",nil];
-        
-        [alert show];
-        
-        
-        _profileSubView.hidden=YES;
-        
 
-        
-        
-    }
      
     
 }
