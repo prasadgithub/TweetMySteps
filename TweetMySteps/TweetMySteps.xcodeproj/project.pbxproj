@@ -29,20 +29,14 @@
 		4E4E81C3165CB24100ADC4CD /* PostTweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E4E81C1165CB24000ADC4CD /* PostTweetViewController.xib */; };
 		4E4E8243165D533200ADC4CD /* LeaderBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E8241165D533200ADC4CD /* LeaderBoardViewController.m */; };
 		4E4E8244165D533200ADC4CD /* LeaderBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E4E8242165D533200ADC4CD /* LeaderBoardViewController.xib */; };
-		4E4E8247165D604900ADC4CD /* promt.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E4E8245165D604900ADC4CD /* promt.png */; };
-		4E4E8248165D604900ADC4CD /* promt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E4E8246165D604900ADC4CD /* promt@2x.png */; };
 		4E4E824E165D84C900ADC4CD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E824D165D84C900ADC4CD /* Social.framework */; };
-		4E6177CF1665FBD2000F168E /* prompt.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177CD1665FBD2000F168E /* prompt.png */; };
-		4E6177D01665FBD2000F168E /* prompt@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177CE1665FBD2000F168E /* prompt@2X.png */; };
 		4E6177D516663394000F168E /* Circle-Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177D116663394000F168E /* Circle-Info.png */; };
 		4E6177D616663394000F168E /* User.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177D216663394000F168E /* User.png */; };
-		4E6177D716663394000F168E /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177D316663394000F168E /* plus.png */; };
 		4E6177D816663394000F168E /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177D416663394000F168E /* 53-house.png */; };
 		4E6177DD1666429B000F168E /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177D91666429A000F168E /* home.png */; };
 		4E6177DE1666429B000F168E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177DA1666429A000F168E /* info.png */; };
 		4E6177DF1666429B000F168E /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177DB1666429A000F168E /* man.png */; };
 		4E6177E01666429B000F168E /* plus-sign.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177DC1666429A000F168E /* plus-sign.png */; };
-		4E6177E21666B1F6000F168E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177E11666B1F6000F168E /* icon.png */; };
 		4EB912301656EEB7000AC73E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB9122F1656EEB7000AC73E /* UIKit.framework */; };
 		4EB912321656EEB7000AC73E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB912311656EEB7000AC73E /* Foundation.framework */; };
 		4EB912341656EEB7000AC73E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB912331656EEB7000AC73E /* CoreGraphics.framework */; };
@@ -98,20 +92,14 @@
 		4E4E8240165D533200ADC4CD /* LeaderBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderBoardViewController.h; sourceTree = "<group>"; };
 		4E4E8241165D533200ADC4CD /* LeaderBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderBoardViewController.m; sourceTree = "<group>"; };
 		4E4E8242165D533200ADC4CD /* LeaderBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderBoardViewController.xib; sourceTree = "<group>"; };
-		4E4E8245165D604900ADC4CD /* promt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promt.png; sourceTree = "<group>"; };
-		4E4E8246165D604900ADC4CD /* promt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promt@2x.png"; sourceTree = "<group>"; };
 		4E4E824D165D84C900ADC4CD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		4E6177CD1665FBD2000F168E /* prompt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prompt.png; sourceTree = "<group>"; };
-		4E6177CE1665FBD2000F168E /* prompt@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prompt@2X.png"; sourceTree = "<group>"; };
 		4E6177D116663394000F168E /* Circle-Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circle-Info.png"; sourceTree = "<group>"; };
 		4E6177D216663394000F168E /* User.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = User.png; sourceTree = "<group>"; };
-		4E6177D316663394000F168E /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		4E6177D416663394000F168E /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
 		4E6177D91666429A000F168E /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		4E6177DA1666429A000F168E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		4E6177DB1666429A000F168E /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
 		4E6177DC1666429A000F168E /* plus-sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-sign.png"; sourceTree = "<group>"; };
-		4E6177E11666B1F6000F168E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		4EB9122B1656EEB7000AC73E /* TweetMySteps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TweetMySteps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EB9122F1656EEB7000AC73E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4EB912311656EEB7000AC73E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -281,19 +269,13 @@
 				4EE8F0CD166F38E90039866F /* Icon.png */,
 				4EC6764B1669B95700D2BF32 /* list-mask.png */,
 				4EC6764C1669B95700D2BF32 /* list-mask@2x.png */,
-				4E6177E11666B1F6000F168E /* icon.png */,
-				4E6177CD1665FBD2000F168E /* prompt.png */,
 				4E6177D116663394000F168E /* Circle-Info.png */,
 				4E6177D91666429A000F168E /* home.png */,
 				4E6177DA1666429A000F168E /* info.png */,
 				4E6177DB1666429A000F168E /* man.png */,
 				4E6177DC1666429A000F168E /* plus-sign.png */,
 				4E6177D216663394000F168E /* User.png */,
-				4E6177D316663394000F168E /* plus.png */,
 				4E6177D416663394000F168E /* 53-house.png */,
-				4E6177CE1665FBD2000F168E /* prompt@2X.png */,
-				4E4E8245165D604900ADC4CD /* promt.png */,
-				4E4E8246165D604900ADC4CD /* promt@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -378,19 +360,13 @@
 				4E4E81BA165C602900ADC4CD /* TweetViewController.xib in Resources */,
 				4E4E81C3165CB24100ADC4CD /* PostTweetViewController.xib in Resources */,
 				4E4E8244165D533200ADC4CD /* LeaderBoardViewController.xib in Resources */,
-				4E4E8247165D604900ADC4CD /* promt.png in Resources */,
-				4E4E8248165D604900ADC4CD /* promt@2x.png in Resources */,
-				4E6177CF1665FBD2000F168E /* prompt.png in Resources */,
-				4E6177D01665FBD2000F168E /* prompt@2X.png in Resources */,
 				4E6177D516663394000F168E /* Circle-Info.png in Resources */,
 				4E6177D616663394000F168E /* User.png in Resources */,
-				4E6177D716663394000F168E /* plus.png in Resources */,
 				4E6177D816663394000F168E /* 53-house.png in Resources */,
 				4E6177DD1666429B000F168E /* home.png in Resources */,
 				4E6177DE1666429B000F168E /* info.png in Resources */,
 				4E6177DF1666429B000F168E /* man.png in Resources */,
 				4E6177E01666429B000F168E /* plus-sign.png in Resources */,
-				4E6177E21666B1F6000F168E /* icon.png in Resources */,
 				4EFBA8001667605300B2101D /* LeaderBoardTableViewCell.xib in Resources */,
 				4EC6764A166942FA00D2BF32 /* NoDisplayTableViewCell.xib in Resources */,
 				4EC6764D1669B95700D2BF32 /* list-mask.png in Resources */,

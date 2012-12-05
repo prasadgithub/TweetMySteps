@@ -2,7 +2,7 @@
 //  DetailTableViewCell.h
 //  TweetMySteps
 //
-//  Created by Tittu on 12/3/12.
+//  Created by Prasad Pamidi on 12/3/12.
 //  Copyright (c) 2012 MindAgile. All rights reserved.
 //
 

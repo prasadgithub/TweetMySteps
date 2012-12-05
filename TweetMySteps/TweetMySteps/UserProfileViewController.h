@@ -2,7 +2,7 @@
 //  UserProfileViewController.h
 //  TweetMySteps
 //
-//  Created by Tittu on 12/2/12.
+//  Created by Prasad Pamidi on 12/2/12.
 //  Copyright (c) 2012 MindAgile. All rights reserved.
 //
 
