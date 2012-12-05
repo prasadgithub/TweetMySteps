@@ -108,6 +108,7 @@
     
     profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
     
+    
 
     
     NSString *lifetimeTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceJSON.php?username=" stringByAppendingString:username];
@@ -148,9 +149,7 @@
     _statsView.hidden=NO;
     
 
-
     NSMutableDictionary *userDataDictionary=[profileDataArray lastObject];
-    
     
     _nameLabel.text=[userDataDictionary objectForKey:@"name"];
     
@@ -161,7 +160,9 @@
     
     _descTextView.text=[userDataDictionary objectForKey:@"desc"];
     
-    data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:username]]];
+    data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[userDataDictionary objectForKey:@"imageURL"]]];
+    
+    
     _profileImage.image=[[UIImage alloc] initWithData:data];
     
     _memberSinceDate.text=[userDataDictionary objectForKey:@"memberDate"];

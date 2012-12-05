@@ -16,11 +16,16 @@
     
     NSData *data;
     
+    NSString *username;
+    
+    NSArray *profileDataArray;
+    
 }
 
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property (strong, nonatomic) IBOutlet UILabel *locationLabel;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 

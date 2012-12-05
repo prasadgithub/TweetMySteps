@@ -35,12 +35,38 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    _scrollView.delegate=self;
     
-    [_scrollView setScrollEnabled:YES];
+    _tweetView.hidden=YES;
     
-    [_scrollView setContentSize:CGSizeMake(320, 600)];
+    dispatch_queue_t downloadQueue=dispatch_queue_create("Download Queue",NULL);
     
+    
+    dispatch_async(downloadQueue, ^{
+        
+        
+        [self getValues];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            
+            [self setValues];
+            
+            if ([_tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+                
+                
+                subTweets=[_tweet objectForKey:@"SUBTWEETS"];
+                
+                [self.tableView reloadData];
+                
+                
+            }
+            
+            
+        });
+        
+        
+    });
+
 }
 
 - (void)viewDidLoad
@@ -57,6 +83,58 @@
     
     [_tweetView.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
     
+
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected:)];
+    tapRecognizer.numberOfTapsRequired = 2;
+    
+    [_tweetView addGestureRecognizer:tapRecognizer];
+    
+    
+    
+  
+}
+
+
+-(void) viewWillAppear:(BOOL)animated{
+    
+    
+    username=[_tweet objectForKey:@"HNDL"];
+    
+    if ([_tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+        
+        
+        subTweets=[_tweet objectForKey:@"SUBTWEETS"];
+        
+        [self.tableView reloadData];
+        
+        
+    }
+
+    
+}
+
+-(void) getValues{
+    
+    
+    NSError *error;
+    
+    NSString *profileURLString=[@"http://m.tweetmysteps.com/profileInfoServiceJSON.php?userName=" stringByAppendingString:username];
+    
+    NSString *profileURLEncoded = [profileURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *profileURL=[NSURL URLWithString:profileURLEncoded];
+    
+    NSData *profileData=[NSData dataWithContentsOfURL:profileURL];
+    
+    
+    profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
+
+}
+
+-(void) setValues{
+    
+    _tweetView.hidden=NO;
+    
     _twitterHandleLabel.text=[@"@" stringByAppendingString:[_tweet objectForKey:@"HNDL"]] ;
     
     data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[_tweet objectForKey:@"IMG"]] ];
@@ -67,45 +145,16 @@
     
     _tweetTextView.text=[_tweet objectForKey:@"COMMENT"];
     
-    _nameLabel.text=[_tweet objectForKey:@"NAME"];
     
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected:)];
-    tapRecognizer.numberOfTapsRequired = 2;
-    
-    [_tweetView addGestureRecognizer:tapRecognizer];
+    NSMutableDictionary *userDataDictionary=[profileDataArray lastObject];
     
     
-    if ([_tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
-        
-        
-        subTweets=[_tweet objectForKey:@"SUBTWEETS"];
+    _nameLabel.text=[userDataDictionary objectForKey:@"name"];
 
-        [self.tableView reloadData];
-        
-        
-    }
+    _locationLabel.text=[_tweet objectForKey:@"LOC"];
     
-  
-}
-
-
--(void) viewWillAppear:(BOOL)animated{
-    
-    
-    
-    if ([_tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
-        
-        
-        subTweets=[_tweet objectForKey:@"SUBTWEETS"];
-        
-        [self.tableView reloadData];
-        
-        
-    }
-
     
 }
-
 
 - (void)tapDetected:(UITapGestureRecognizer *)tapRecognizer
 {
@@ -200,6 +249,27 @@
     
 }
 
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 220)]; // x,y,width,height
+    
+    [_tweetView setFrame:CGRectMake(10.0, 10.0, 300, 210)];
+    
+    
+    [headerView addSubview:_tweetView];
+    
+    return headerView;
+    
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 225.0f;
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
