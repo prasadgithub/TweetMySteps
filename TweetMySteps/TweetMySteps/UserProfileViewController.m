@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UserProfileLifeTimeTableViewCell.h"
-#import "DetailViewController.h"
+#import "DetailedViewController.h"
 #import "NoDisplayTableViewCell.h"
 
 @interface UserProfileViewController ()
@@ -165,6 +165,13 @@
     
     _profileImage.image=[[UIImage alloc] initWithData:data];
     
+    
+    [_profileImage.layer setMasksToBounds:YES];
+    
+    [_profileImage.layer setCornerRadius:7.0f];
+    
+
+    
     _memberSinceDate.text=[userDataDictionary objectForKey:@"memberDate"];
     _avgStepsLabel.text=[userDataDictionary objectForKey:@"avgStep"];
     
@@ -260,6 +267,14 @@
         
         cell.profileTabPic.image=[UIImage imageWithData:data];
         
+
+        [cell.profileTabPic.layer setMasksToBounds:YES];
+        
+        [cell.profileTabPic.layer setCornerRadius:7.0f];
+        
+        
+
+        
         cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
         
         cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
@@ -325,6 +340,11 @@
             cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
             
             cell.profileTabPic.image=[UIImage imageWithData:data];
+          
+            [cell.profileTabPic.layer setMasksToBounds:YES];
+            
+            [cell.profileTabPic.layer setCornerRadius:7.0f];
+            
             
             cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
             
@@ -379,19 +399,29 @@
 {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSMutableDictionary *tweetData=[lifetimeTweetsArray objectAtIndex:indexPath.row];
-    
-      
-    if ([tweetData objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+   
+    if (_segmentControl.selectedSegmentIndex==0) {
+        
+        NSMutableDictionary *tweetData=[lifetimeTweetsArray objectAtIndex:indexPath.row];
         
         
-        DetailViewController *detailVC=[[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:[NSBundle mainBundle]];
+        if ([tweetData objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+            
+            
+            DetailedViewController *detailVC=[[DetailedViewController alloc] initWithNibName:@"DetailedViewController" bundle:[NSBundle mainBundle]];
+            
+            detailVC.subTweetsArray=[tweetData objectForKey:@"SUBTWEETS"];
+            
+            NSMutableDictionary *tweet=[lifetimeTweetsArray objectAtIndex:indexPath.row];
+            
+            detailVC.time=[tweet objectForKey:@"TIME"];
+            
+            detailVC.totalSteps=[tweet objectForKey:@"STEPS"];
+            
+            [self.navigationController pushViewController:detailVC animated:YES];
         
-        detailVC.subTweetsArray=[tweetData objectForKey:@"SUBTWEETS"];
-        
-        
-        [self.navigationController pushViewController:detailVC animated:YES];
+    }
+
         
         
     }

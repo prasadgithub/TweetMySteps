@@ -14,6 +14,7 @@
 
 @interface UserProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>{
     
+   
     NSData *data;
     
     NSArray *lifetimeTweetsArray;
@@ -27,6 +28,7 @@
     NSString *noTweetMSG;
 
     NSArray *profileDataArray;
+    
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *memberSinceDate;

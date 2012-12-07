@@ -211,12 +211,23 @@
             
             
             _profileImageView.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]]];
+                
+            
+            [_profileImageView.layer setMasksToBounds:YES];
+            
+            [_profileImageView.layer setCornerRadius:7.0f];
+            
             
         } else {
             
             data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]];
             
             _profileImageView.image=[[UIImage alloc] initWithData:data];
+            
+            
+            [_profileImageView.layer setMasksToBounds:YES];
+            
+            [_profileImageView.layer setCornerRadius:7.0f];
             
             
             _statsView.hidden=NO;
@@ -230,10 +241,14 @@
         }
         
          
+    
+    [_profileImageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
+    [_profileImageView.layer setBorderWidth: 1.0];
+    
 
-        
+    
 
-     
+    
     
 }
 
@@ -321,6 +336,12 @@
         
         cell.profileTabPic.image=[UIImage imageWithData:data];
         
+        
+        [cell.profileTabPic.layer setMasksToBounds:YES];
+        
+        [cell.profileTabPic.layer setCornerRadius:7.0f];
+        
+        
         cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
         
         cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
@@ -386,6 +407,12 @@
             cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
             
             cell.profileTabPic.image=[UIImage imageWithData:data];
+            
+            
+            [cell.profileTabPic.layer setMasksToBounds:YES];
+            
+            [cell.profileTabPic.layer setCornerRadius:7.0f];
+            
             
             cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
             

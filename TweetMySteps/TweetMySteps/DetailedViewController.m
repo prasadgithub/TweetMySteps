@@ -1,31 +1,31 @@
 //
-//  DetailViewController.m
+//  DetailedViewController.m
 //  TweetMySteps
 //
-//  Created by Prasad Pamidi on 12/3/12.
+//  Created by Tittu on 12/6/12.
 //  Copyright (c) 2012 MindAgile. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "DetailedViewController.h"
 #import "DetailTableViewCell.h"
-
-#import "UserProfileViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UserProfileViewController.h"
 
-@interface DetailViewController ()
+@interface DetailedViewController ()
 
 @end
 
-@implementation DetailViewController
+@implementation DetailedViewController
 
-@synthesize subTweetsArray;
+@synthesize subTweetsArray, time, totalSteps;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
         
+        self.title=@" ";
+    
     }
     return self;
 }
@@ -34,41 +34,34 @@
 {
     [super viewDidLoad];
     
-
     NSMutableDictionary *tweetDictionary=[subTweetsArray lastObject];
     
     imageData= [NSData dataWithContentsOfURL:[NSURL URLWithString:[tweetDictionary objectForKey:@"IMG"]]];
     
     userName=[tweetDictionary objectForKey:@"HNDL"];
     
+    _summaryView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern3.png"]];
+    
+    [_summaryView setFrame:CGRectMake(0.0, 0.0, 320, 45)];
+
+    [self.view addSubview:_summaryView];
+    
     [self.tableView reloadData];
+    
 
+    
+    
 }
-
 -(void) viewWillAppear:(BOOL)animated{
     
+
+    _totalStepsLabel.text=totalSteps;
+    
+    _timeLabel.text=time;
     
     [self.tableView reloadData];
-    
-
-    
-    
+     
 }
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-        self.title=@" ";
-
-        
-    }
-    return self;
-}
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -76,16 +69,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-        return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
     return [subTweetsArray count];
 }
 
@@ -113,7 +107,7 @@
     
     NSMutableDictionary *tweetDictionary=[subTweetsArray objectAtIndex:indexPath.row];
     
-
+    cell.imageView.image=[UIImage imageWithData:imageData];
     
     [cell.imageView.layer setMasksToBounds:YES];
     
@@ -122,73 +116,16 @@
     
     
     cell.handleLable.text=[@"@" stringByAppendingString:[tweetDictionary objectForKey:@"HNDL"]];
-
+    
     cell.stepCountLabel.text=[NSString stringWithFormat:@"%@",[tweetDictionary objectForKey:@"STEPS"]];
     
     cell.timeLabel.text=[tweetDictionary objectForKey:@"TIME"];
     
     cell.commentTextView.text=[tweetDictionary objectForKey:@"COMMENT"];
     return cell;
-}
-
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 40)]; // x,y,width,height
-    
-    
-
-    return headerView;
-    
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 50.0f;
-    
-}
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -203,5 +140,6 @@
     [self.navigationController pushViewController:userProfileVC animated:YES];
     
 }
+
 
 @end

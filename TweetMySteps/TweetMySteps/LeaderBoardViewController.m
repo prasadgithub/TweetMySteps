@@ -10,6 +10,8 @@
 #import "LeaderBoardTableViewCell.h"
 #import "NoDisplayTableViewCell.h"
 #import "TweetViewController.h"
+#import "UserProfileViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface LeaderBoardViewController ()
 
@@ -32,7 +34,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-        self.title=@"Leader Board";
+        self.title=@"Leaderboard";
         
         self.tabBarItem.image=[UIImage imageNamed:@"home.png"];
         
@@ -279,6 +281,13 @@
                 
                 cell.image.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]]];
                 
+                [cell.image.layer setMasksToBounds:YES];
+                
+                [cell.image.layer setCornerRadius:7.0f];
+                //[cell.image.layer setBorderColor: [[UIColor blackColor] CGColor]];
+                //[cell.image.layer setBorderWidth: 1.0];
+
+                
                 cell.comment.text=[tweet objectForKey:@"COMMENT"];
                 
                 cell.stepCount.text=[tweet objectForKey:@"STEPS"];
@@ -344,6 +353,10 @@
             
             
             cell.image.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]]];
+            
+            [cell.image.layer setMasksToBounds:YES];
+            
+            [cell.image.layer setCornerRadius:7.0f];
             
             cell.comment.text=[tweet objectForKey:@"COMMENT"];
             
@@ -411,6 +424,11 @@
 
             cell.image.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]]];
 
+            [cell.image.layer setMasksToBounds:YES];
+            
+            [cell.image.layer setCornerRadius:7.0f];
+            
+            
             cell.comment.text=[tweet objectForKey:@"COMMENT"];
             
             cell.stepCount.text=[tweet objectForKey:@"STEPS"];
@@ -509,18 +527,19 @@
         
         if ([todayTweetsArray count]>0) {
             
-            
-            TweetViewController *tweetVC=[[TweetViewController alloc] initWithNibName:@"TweetViewController" bundle:[NSBundle mainBundle]];
-            
-            
             NSMutableDictionary *tweet=(NSMutableDictionary *)todayTweetsArray[indexPath.row];
+         
             
-            tweetVC.tweet=tweet;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
+            UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
             
-            [self.navigationController pushViewController:tweetVC animated:YES];
+            userProfileVC.username=[tweet objectForKey:@"HNDL"];
+
+            
+          dispatch_async(dispatch_get_main_queue(), ^{
                 
+              
+              [self.navigationController pushViewController:userProfileVC animated:YES];
+       
             });
             
         }
@@ -530,17 +549,18 @@
         if ([weekTweetsArray count]>0) {
             
             
-            TweetViewController *tweetVC=[[TweetViewController alloc] initWithNibName:@"TweetViewController" bundle:[NSBundle mainBundle]];
-            
             
             NSMutableDictionary *tweet=(NSMutableDictionary *)weekTweetsArray[indexPath.row];
             
-            tweetVC.tweet=tweet;
+            UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
+            
+            userProfileVC.username=[tweet objectForKey:@"HNDL"];
+            
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 
-                [self.navigationController pushViewController:tweetVC animated:YES];
+                [self.navigationController pushViewController:userProfileVC animated:YES];
                 
             });
             
@@ -551,20 +571,21 @@
         
         if ([lifetimeTweetsArray count]>0) {
             
-        TweetViewController *tweetVC=[[TweetViewController alloc] initWithNibName:@"TweetViewController" bundle:[NSBundle mainBundle]];
             
             NSMutableDictionary *tweet=(NSMutableDictionary *)lifetimeTweetsArray[indexPath.row];
         
-        
-            tweetVC.tweet=tweet;
-
+            UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
+            
+            userProfileVC.username=[tweet objectForKey:@"HNDL"];
+            
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 
-                [self.navigationController pushViewController:tweetVC animated:YES];
+                [self.navigationController pushViewController:userProfileVC animated:YES];
                 
             });
-            
+
        }
     }
     
@@ -573,9 +594,7 @@
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 35)]; // x,y,width,height
-
-
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 35)];
     
     [_segmentControl setFrame:CGRectMake(20.0, 5, 280.0, 30.0)];
     
