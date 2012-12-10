@@ -47,10 +47,7 @@
     
     [_scrollView setScrollEnabled:YES];
     
-
     [_scrollView setContentSize:CGSizeMake(320, 1000)];
-    
-    
     
 }
 
@@ -58,7 +55,6 @@
 {
     [super viewDidLoad];
     
-
     _profileSubView.hidden=YES;
     
     _statsView.hidden=YES;
@@ -66,25 +62,21 @@
     _tableView.hidden=YES;
     
     _segmentControl.hidden=YES;
-    
-    
+        
     [_profileSubView.layer setCornerRadius:5.0f];
     [_profileSubView.layer setBorderColor:[UIColor lightTextColor].CGColor];
     [_profileSubView.layer setBorderWidth:1.0f];
     [_profileSubView.layer setShadowColor:[UIColor lightGrayColor].CGColor];
     [_profileSubView.layer setShadowOpacity:0.8];
     [_profileSubView.layer setShadowRadius:1.0];
-    
-    [_profileSubView.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
-    
+    [_profileSubView.layer setShadowOffset:CGSizeMake(1.0, 1.0)];    
   
     [_statsView.layer setCornerRadius:5.0f];
     [_statsView.layer setBorderColor:[UIColor lightTextColor].CGColor];
     [_statsView.layer setBorderWidth:1.0f];
     [_statsView.layer setShadowColor:[UIColor lightGrayColor].CGColor];
     [_statsView.layer setShadowOpacity:0.8];
-    [_statsView.layer setShadowRadius:1.0];
-    
+    [_statsView.layer setShadowRadius:1.0];    
     [_statsView.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
     
    
@@ -107,15 +99,12 @@
         
     });
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
+    dispatch_async(dispatch_get_main_queue(), ^{        
         
         [self setValues];
         
         [self.tableView reloadData];
         
-    
-    
     });
 
     }else{
@@ -128,9 +117,7 @@
         
         _profileSubView.hidden=YES;
         
-        
-        
-        
+
     }
     
 }
@@ -205,14 +192,12 @@
         
        
         if ([profileDataArray count]==0) {
-            
-           
+
             _scrollView.scrollEnabled=NO;
             
-            
             _profileImageView.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]]];
-                
-            
+           
+
             [_profileImageView.layer setMasksToBounds:YES];
             
             [_profileImageView.layer setCornerRadius:7.0f];
@@ -223,12 +208,10 @@
             data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://api.twitter.com/1/users/profile_image/" stringByAppendingString:[userDataArray objectForKey:@"screen_name"]]]];
             
             _profileImageView.image=[[UIImage alloc] initWithData:data];
-            
-            
+                        
             [_profileImageView.layer setMasksToBounds:YES];
             
             [_profileImageView.layer setCornerRadius:7.0f];
-            
             
             _statsView.hidden=NO;
             
@@ -236,18 +219,28 @@
             
             _segmentControl.hidden=NO;
             
+            NSDictionary *userDataDictionary=[profileDataArray lastObject];
+            
+            _avgStepLabel.text=[[userDataDictionary objectForKey:@"avgStep"] stringByAppendingString:@"steps"];
+            
+            _bestStepsLabel.text=[userDataDictionary objectForKey:@"maxStepDay"];
+            
+            _tenKDaysLabel.text=[userDataDictionary objectForKey:@"tenKDays"];
+            
+            _tenKStreakLabel.text=[NSString stringWithFormat:@"%@",[userDataDictionary objectForKey:@"tenKStreaks"]];
+            
+            _todayStepCountLabel.text=[[[[userDataDictionary objectForKey:@"todaySteps"] stringByAppendingString:@" steps ("] stringByAppendingString:[userDataDictionary objectForKey:@"todayMiles"]] stringByAppendingString:@" miles)"];
+            
+            _lifetimeStepCountLabel.text=[[[[userDataDictionary objectForKey:@"lifetimeSteps"] stringByAppendingString:@" steps ("] stringByAppendingString:[userDataDictionary objectForKey:@"lifetimeMiles"]] stringByAppendingString:@" miles)"];
+            
+            _vsBattlesLabel.text=[userDataDictionary objectForKey:@"vsBattles"];
+            
+            _vsWinsLabel.text=[userDataDictionary objectForKey:@"vsWins"];
             
             
         }
-        
-         
     
-    [_profileImageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
-    [_profileImageView.layer setBorderWidth: 1.0];
-    
-
-    
-
+    imagePic=_profileImageView.image;
     
     
 }
@@ -262,6 +255,7 @@
         
         [[UIApplication sharedApplication] openURL:url];
         
+        
     }
     
 }
@@ -269,15 +263,14 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-    
     return 1;
 }
 
@@ -328,29 +321,41 @@
             
         }
         
+        
         dataArray=lifetimeTweetsArray;
         
         NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
         
         cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
         
-        cell.profileTabPic.image=[UIImage imageWithData:data];
-        
-        
-        [cell.profileTabPic.layer setMasksToBounds:YES];
-        
-        [cell.profileTabPic.layer setCornerRadius:7.0f];
-        
-        
         cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
-        
-        cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
         
         cell.timeLabel.text=[tweet objectForKey:@"TIME"];
         
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            cell.profileTabPic.image=imagePic;
+            
+            [cell.profileTabPic.layer setMasksToBounds:YES];
+            
+            [cell.profileTabPic.layer setCornerRadius:7.0f];
+            
+            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+            
+            
+            
+        });
+        
+        
+        if ([tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+            
+            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+            
+        }
+        
         return cell;
-        
-        
         
     }else{
         
@@ -406,17 +411,27 @@
             
             cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
             
-            cell.profileTabPic.image=[UIImage imageWithData:data];
-            
-            
-            [cell.profileTabPic.layer setMasksToBounds:YES];
-            
-            [cell.profileTabPic.layer setCornerRadius:7.0f];
-            
-            
             cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
             
-            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                cell.profileTabPic.image=imagePic;
+                
+                [cell.profileTabPic.layer setMasksToBounds:YES];
+                
+                [cell.profileTabPic.layer setCornerRadius:7.0f];
+                
+                cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+                
+            });
+            
+            
+            if ([tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+                
+                cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+                
+            }
             
             return cell;
             
@@ -424,7 +439,6 @@
         }
         
     }
-
     
 }
 
@@ -479,23 +493,14 @@
             [self.navigationController pushViewController:userProfileVC animated:YES];
             
             
-            
         }
-
-        
         
     }
-    
-    
-    
+
 }
-
-
-
-
-
 - (IBAction)segmentChanged:(id)sender {
     
     [self.tableView reloadData];
+    
 }
 @end

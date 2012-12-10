@@ -77,8 +77,15 @@
     
     charLeft=80;
     
+    _progressView.progress=0;
+    
+  
     _stepCountLabel.text=[NSString stringWithFormat:@"%d",charLeft];
 
+    
+    _progressView.progressTintColor=[UIColor darkGrayColor];
+    
+    _stepCountLabel.textColor=[UIColor darkGrayColor];
     
     [self.tableView reloadData];
     
@@ -132,7 +139,7 @@
         return NO;
     }
     
-    if (charLeft==0) {
+    if (charLeft==0&&![string isEqualToString:@""]) {
         
         return NO;
     }
@@ -220,7 +227,10 @@
 {
     /* for backspace */
     /*  limit to only numeric characters  */
+    
     NSCharacterSet* numberCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    
+    
     for (int i = 0; i < [string length]; ++i)
     {
         unichar c = [string characterAtIndex:i];
@@ -230,7 +240,7 @@
         }
     }
     
-    if (charLeft==0) {
+    if (charLeft==0&&![string isEqualToString:@""]) {
         
         return NO;
     }
@@ -253,21 +263,69 @@
     
     int commentTextLength;
     if ([comment.text isEqualToString:@"Comment"]) {
+        
         commentTextLength=0;
+        
     }else{
+        
         commentTextLength=[comment.text length];
+    
     }
+    
+ 
     
     charLeft=80-([_stepsTextField.text length] + commentTextLength);
     
     _stepCountLabel.text=[NSString stringWithFormat:@"%d",charLeft];
     
+   
+    [self updateProgressBar];
     
 }
+
+-(void) updateProgressBar{
+    
+    int commentTextLength;
+    if ([comment.text isEqualToString:@"Comment"]) {
+        
+        commentTextLength=0;
+        
+    }else{
+        
+        commentTextLength=[comment.text length];
+        
+    }
+
+    
+    int chars=[_stepsTextField.text length] + commentTextLength;
+    
+    _progressView.progress=chars*0.0125;
+    
+    
+    
+    if (charLeft<20) {
+        
+        _progressView.progressTintColor=[UIColor redColor];
+        
+        _stepCountLabel.textColor=[UIColor redColor];
+        
+    }else{
+        
+        _progressView.progressTintColor=[UIColor darkGrayColor];
+        
+        _stepCountLabel.textColor=[UIColor darkGrayColor];
+        
+        
+    }
+    
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  
+
 }
 
 - (IBAction)postTweetMsg:(id)sender {

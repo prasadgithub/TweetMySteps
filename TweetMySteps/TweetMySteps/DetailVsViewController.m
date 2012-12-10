@@ -1,21 +1,22 @@
 //
-//  DetailedViewController.m
+//  DetailVsViewController.m
 //  TweetMySteps
 //
-//  Created by Tittu on 12/6/12.
+//  Created by Tittu on 12/9/12.
 //  Copyright (c) 2012 MindAgile. All rights reserved.
 //
 
-#import "DetailedViewController.h"
-#import "DetailTableViewCell.h"
+#import "DetailVsViewController.h"
+#import "DetailVsTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UserProfileViewController.h"
 
-@interface DetailedViewController ()
+
+@interface DetailVsViewController ()
 
 @end
 
-@implementation DetailedViewController
+@implementation DetailVsViewController
 
 @synthesize subTweetsArray, time, totalSteps;
 
@@ -24,11 +25,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-        self.title=@" ";
-    
+        self.title=@"";
     }
     return self;
 }
+
 
 - (void)viewDidLoad
 {
@@ -43,7 +44,7 @@
     _summaryView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern3.png"]];
     
     [_summaryView setFrame:CGRectMake(0.0, 0.0, 320, 45)];
-
+    
     [self.view addSubview:_summaryView];
     
     [self.tableView reloadData];
@@ -52,13 +53,13 @@
 }
 -(void) viewWillAppear:(BOOL)animated{
     
-
+    
     _totalStepsLabel.text=totalSteps;
     
     _timeLabel.text=time;
     
     [self.tableView reloadData];
-     
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,17 +86,17 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    DetailTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    DetailVsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     
     if (cell == nil) {
         
-        NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"DetailTableViewCell" owner:nil options:nil];
+        NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"DetailVsTableViewCell" owner:nil options:nil];
         
         for (id obj in views) {
             
             if ([obj isKindOfClass:[UITableViewCell class]]) {
-                cell=(DetailTableViewCell*) obj;
+                cell=(DetailVsTableViewCell*) obj;
             }
             
         }
@@ -131,6 +132,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
+    
+    userProfileVC.username=userName;
+    
+    [self.navigationController pushViewController:userProfileVC animated:YES];
     
 }
 

@@ -29,6 +29,8 @@
 
     NSArray *profileDataArray;
     
+    UIImage *imagePic;
+    
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *memberSinceDate;

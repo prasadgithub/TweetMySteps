@@ -12,6 +12,7 @@
 #import "UserProfileLifeTimeTableViewCell.h"
 #import "DetailedViewController.h"
 #import "NoDisplayTableViewCell.h"
+#import "DetailVsViewController.h"
 
 @interface UserProfileViewController ()
 
@@ -43,21 +44,18 @@
     dispatch_async(downloadQueue, ^{
         
         
-        [self getValues];
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            
-            [self setValues];
-            
-            [self.tableView reloadData];
-            
-            
-        });
-        
-        
     });
     
+    
+    [self getValues];
+    
+    [self setValues];
+    
+    
+    [self.tableView reloadData];
+        
+   
+
     
 }
 
@@ -162,18 +160,19 @@
     
     data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[userDataDictionary objectForKey:@"imageURL"]]];
     
+    imagePic=[[UIImage alloc] initWithData:data];
     
     _profileImage.image=[[UIImage alloc] initWithData:data];
     
     
-    [_profileImage.layer setMasksToBounds:YES];
+     [_profileImage.layer setMasksToBounds:YES];
     
     [_profileImage.layer setCornerRadius:7.0f];
     
 
     
     _memberSinceDate.text=[userDataDictionary objectForKey:@"memberDate"];
-    _avgStepsLabel.text=[userDataDictionary objectForKey:@"avgStep"];
+    _avgStepsLabel.text=[[userDataDictionary objectForKey:@"avgStep"] stringByAppendingString:@" steps"];
     
     _bestStepsDayLabel.text=[userDataDictionary objectForKey:@"maxStepDay"];
     
@@ -181,9 +180,9 @@
     
     _tenKStreakLabel.text=[NSString stringWithFormat:@"%@",[userDataDictionary objectForKey:@"tenKStreaks"]];
     
-    _todayStepCountLabel.text=[[[[userDataDictionary objectForKey:@"todaySteps"] stringByAppendingString:@" steps ("] stringByAppendingString:[userDataDictionary objectForKey:@"todayMiles"]] stringByAppendingString:@" Mi)"];
+    _todayStepCountLabel.text=[[[[userDataDictionary objectForKey:@"todaySteps"] stringByAppendingString:@" steps ("] stringByAppendingString:[userDataDictionary objectForKey:@"todayMiles"]] stringByAppendingString:@" miles)"];
     
-    _lifetimeStepCountLabel.text=[[[[userDataDictionary objectForKey:@"lifetimeSteps"] stringByAppendingString:@" steps ("] stringByAppendingString:[userDataDictionary objectForKey:@"lifetimeMiles"]] stringByAppendingString:@" Mi)"];
+    _lifetimeStepCountLabel.text=[[[[userDataDictionary objectForKey:@"lifetimeSteps"] stringByAppendingString:@" steps ("] stringByAppendingString:[userDataDictionary objectForKey:@"lifetimeMiles"]] stringByAppendingString:@" miles)"];
     
     _vsBattlesLabel.text=[userDataDictionary objectForKey:@"vsBattles"];
     
@@ -259,32 +258,42 @@
             
         }
         
-         dataArray=lifetimeTweetsArray;
+        
+        dataArray=lifetimeTweetsArray;
         
         NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
         
         cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
         
-        cell.profileTabPic.image=[UIImage imageWithData:data];
-        
-
-        [cell.profileTabPic.layer setMasksToBounds:YES];
-        
-        [cell.profileTabPic.layer setCornerRadius:7.0f];
-        
-        
-
-        
         cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
-        
-        cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
         
         cell.timeLabel.text=[tweet objectForKey:@"TIME"];
         
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+
+            cell.profileTabPic.image=imagePic;
+     
+            [cell.profileTabPic.layer setMasksToBounds:YES];
+            
+            [cell.profileTabPic.layer setCornerRadius:7.0f];
+            
+            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+            
+
+            
+        });
+        
+        
+        if ([tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+        
+            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        
+        }
+        
         return cell;
-        
-        
-        
+
     }else{
         
         dataArray=vsTweetsArray;
@@ -339,17 +348,28 @@
             
             cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
             
-            cell.profileTabPic.image=[UIImage imageWithData:data];
-          
-            [cell.profileTabPic.layer setMasksToBounds:YES];
-            
-            [cell.profileTabPic.layer setCornerRadius:7.0f];
-            
-            
             cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
             
-            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
             
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                cell.profileTabPic.image=imagePic;
+                
+                [cell.profileTabPic.layer setMasksToBounds:YES];
+                
+                [cell.profileTabPic.layer setCornerRadius:7.0f];
+                
+                cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+                
+            });
+ 
+
+            if ([tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+                
+                cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+                
+            }
+
             return cell;
    
             
@@ -423,6 +443,49 @@
     }
 
         
+        
+    }else{
+        
+        
+        NSMutableDictionary *tweetData=[lifetimeTweetsArray objectAtIndex:indexPath.row];
+        
+        
+        if ([tweetData objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
+            
+            
+            DetailVsViewController *detailVC=[[DetailVsViewController alloc] initWithNibName:@"DetailVsViewController" bundle:[NSBundle mainBundle]];
+            
+            detailVC.subTweetsArray=[tweetData objectForKey:@"SUBTWEETS"];
+            
+            NSMutableDictionary *tweet=[lifetimeTweetsArray objectAtIndex:indexPath.row];
+            
+            detailVC.time=[tweet objectForKey:@"TIME"];
+            
+            detailVC.totalSteps=[tweet objectForKey:@"STEPS"];
+            
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+            
+        }else{
+            
+            
+            UserProfileViewController *userProfileVC=[[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:[NSBundle mainBundle]];
+            
+            userProfileVC.username=[tweetData objectForKey:@"HNDL"];
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                [self.navigationController pushViewController:userProfileVC animated:YES];
+                
+            });
+
+            
+            
+            
+        }
+
         
     }
 
