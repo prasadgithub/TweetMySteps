@@ -86,7 +86,6 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-   
     
     if ([userDataArray count]>0) {
         
@@ -260,6 +259,14 @@
     
 }
 
+- (void)flushCache
+{
+    [SDWebImageManager.sharedManager.imageCache clearMemory];
+    [SDWebImageManager.sharedManager.imageCache clearDisk];
+}
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -335,9 +342,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [cell.profileTabPic setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
+                       placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
             
-            cell.profileTabPic.image=imagePic;
-            
+
             [cell.profileTabPic.layer setMasksToBounds:YES];
             
             [cell.profileTabPic.layer setCornerRadius:7.0f];
@@ -416,7 +424,8 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                cell.profileTabPic.image=imagePic;
+                [cell.profileTabPic setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
+                                   placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
                 
                 [cell.profileTabPic.layer setMasksToBounds:YES];
                 

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
+
+
 @interface LeaderBoardViewController : UITableViewController{
     
     UIRefreshControl *refreshControl;

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E047EE1167556200028B1CE /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E047EE0167556200028B1CE /* Placeholder.png */; };
 		4E047EF416758E170028B1CE /* DetailVsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E047EF216758E160028B1CE /* DetailVsViewController.m */; };
 		4E047EF516758E170028B1CE /* DetailVsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E047EF316758E170028B1CE /* DetailVsViewController.xib */; };
 		4E047EF81675C25B0028B1CE /* DetailVsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E047EF71675C25A0028B1CE /* DetailVsTableViewCell.m */; };
@@ -40,6 +39,9 @@
 		4E6177DE1666429B000F168E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177DA1666429A000F168E /* info.png */; };
 		4E6177DF1666429B000F168E /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177DB1666429A000F168E /* man.png */; };
 		4E6177E01666429B000F168E /* plus-sign.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6177DC1666429A000F168E /* plus-sign.png */; };
+		4E9DB1471684F73D006811FD /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9DB1461684F73C006811FD /* SDWebImage.framework */; };
+		4E9DB14A1684F759006811FD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9DB1491684F759006811FD /* ImageIO.framework */; };
+		4E9DB14C1684FBB1006811FD /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E9DB14B1684FBB1006811FD /* Placeholder.png */; };
 		4EB912301656EEB7000AC73E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB9122F1656EEB7000AC73E /* UIKit.framework */; };
 		4EB912321656EEB7000AC73E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB912311656EEB7000AC73E /* Foundation.framework */; };
 		4EB912341656EEB7000AC73E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB912331656EEB7000AC73E /* CoreGraphics.framework */; };
@@ -47,10 +49,10 @@
 		4EB9123C1656EEB7000AC73E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EB9123A1656EEB7000AC73E /* InfoPlist.strings */; };
 		4EB9123E1656EEB7000AC73E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9123D1656EEB7000AC73E /* main.m */; };
 		4EB912421656EEB7000AC73E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB912411656EEB7000AC73E /* AppDelegate.m */; };
-		4EB912441656EEB7000AC73E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EB912431656EEB7000AC73E /* Default.png */; };
-		4EB912461656EEB7000AC73E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EB912451656EEB7000AC73E /* Default@2x.png */; };
-		4EB912481656EEB7000AC73E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EB912471656EEB7000AC73E /* Default-568h@2x.png */; };
 		4EB9124B1656EEB7000AC73E /* TweetMySteps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4EB912491656EEB7000AC73E /* TweetMySteps.xcdatamodeld */; };
+		4EC529F71685104D00B1C639 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC529F61685104D00B1C639 /* Default.png */; };
+		4EC529FA1685105600B1C639 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC529F91685105600B1C639 /* Default@2x.png */; };
+		4EC529FC1685105D00B1C639 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC529FB1685105D00B1C639 /* Default-568h@2x.png */; };
 		4EC67648166942D300D2BF32 /* NoDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC67647166942D300D2BF32 /* NoDisplayTableViewCell.m */; };
 		4EC6764A166942FA00D2BF32 /* NoDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EC67649166942FA00D2BF32 /* NoDisplayTableViewCell.xib */; };
 		4EC676581669CEFD00D2BF32 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC676571669CEFD00D2BF32 /* iAd.framework */; };
@@ -64,7 +66,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4E047EE0167556200028B1CE /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Placeholder.png; path = ../../../../Placeholder.png; sourceTree = "<group>"; };
 		4E047EF116758E160028B1CE /* DetailVsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVsViewController.h; sourceTree = "<group>"; };
 		4E047EF216758E160028B1CE /* DetailVsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVsViewController.m; sourceTree = "<group>"; };
 		4E047EF316758E170028B1CE /* DetailVsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailVsViewController.xib; sourceTree = "<group>"; };
@@ -109,6 +110,9 @@
 		4E6177DA1666429A000F168E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		4E6177DB1666429A000F168E /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
 		4E6177DC1666429A000F168E /* plus-sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-sign.png"; sourceTree = "<group>"; };
+		4E9DB1461684F73C006811FD /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = TweetMySteps/SDWebImage.framework; sourceTree = "<group>"; };
+		4E9DB1491684F759006811FD /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		4E9DB14B1684FBB1006811FD /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		4EB9122B1656EEB7000AC73E /* TweetMySteps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TweetMySteps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EB9122F1656EEB7000AC73E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4EB912311656EEB7000AC73E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -120,10 +124,10 @@
 		4EB9123F1656EEB7000AC73E /* TweetMySteps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TweetMySteps-Prefix.pch"; sourceTree = "<group>"; };
 		4EB912401656EEB7000AC73E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4EB912411656EEB7000AC73E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4EB912431656EEB7000AC73E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		4EB912451656EEB7000AC73E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		4EB912471656EEB7000AC73E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4EB9124A1656EEB7000AC73E /* TweetMySteps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TweetMySteps.xcdatamodel; sourceTree = "<group>"; };
+		4EC529F61685104D00B1C639 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		4EC529F91685105600B1C639 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		4EC529FB1685105D00B1C639 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		4EC67646166942D300D2BF32 /* NoDisplayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoDisplayTableViewCell.h; sourceTree = "<group>"; };
 		4EC67647166942D300D2BF32 /* NoDisplayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoDisplayTableViewCell.m; sourceTree = "<group>"; };
 		4EC67649166942FA00D2BF32 /* NoDisplayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoDisplayTableViewCell.xib; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9DB14A1684F759006811FD /* ImageIO.framework in Frameworks */,
 				4EC676581669CEFD00D2BF32 /* iAd.framework in Frameworks */,
 				4E4E824E165D84C900ADC4CD /* Social.framework in Frameworks */,
 				4E4E81BE165C67B200ADC4CD /* Accounts.framework in Frameworks */,
@@ -152,6 +157,7 @@
 				4EB912321656EEB7000AC73E /* Foundation.framework in Frameworks */,
 				4EB912341656EEB7000AC73E /* CoreGraphics.framework in Frameworks */,
 				4EB912361656EEB7000AC73E /* CoreData.framework in Frameworks */,
+				4E9DB1471684F73D006811FD /* SDWebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +184,8 @@
 		4EB9122E1656EEB7000AC73E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E9DB1491684F759006811FD /* ImageIO.framework */,
+				4E9DB1461684F73C006811FD /* SDWebImage.framework */,
 				4EC676571669CEFD00D2BF32 /* iAd.framework */,
 				4E4E824D165D84C900ADC4CD /* Social.framework */,
 				4E4E81BD165C67B200ADC4CD /* Accounts.framework */,
@@ -207,13 +215,13 @@
 		4EB912381656EEB7000AC73E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4EC529FB1685105D00B1C639 /* Default-568h@2x.png */,
+				4EC529F91685105600B1C639 /* Default@2x.png */,
+				4EC529F61685104D00B1C639 /* Default.png */,
 				4EB912391656EEB7000AC73E /* TweetMySteps-Info.plist */,
 				4EB9123A1656EEB7000AC73E /* InfoPlist.strings */,
 				4EB9123D1656EEB7000AC73E /* main.m */,
 				4EB9123F1656EEB7000AC73E /* TweetMySteps-Prefix.pch */,
-				4EB912431656EEB7000AC73E /* Default.png */,
-				4EB912451656EEB7000AC73E /* Default@2x.png */,
-				4EB912471656EEB7000AC73E /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -245,8 +253,8 @@
 				4E4E81BF165CB24000ADC4CD /* PostTweetViewController.h */,
 				4E4E81C0165CB24000ADC4CD /* PostTweetViewController.m */,
 				4E4E81B1165C59CF00ADC4CD /* SettingsViewController.h */,
-				4E4E81B6165C602800ADC4CD /* TweetViewController.h */,
 				4E4E81B2165C59CF00ADC4CD /* SettingsViewController.m */,
+				4E4E81B6165C602800ADC4CD /* TweetViewController.h */,
 				4E4E81B7165C602800ADC4CD /* TweetViewController.m */,
 				4E4E8240165D533200ADC4CD /* LeaderBoardViewController.h */,
 				4E4E8241165D533200ADC4CD /* LeaderBoardViewController.m */,
@@ -282,7 +290,7 @@
 		4EB912551656EF11000AC73E /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				4E047EE0167556200028B1CE /* Placeholder.png */,
+				4E9DB14B1684FBB1006811FD /* Placeholder.png */,
 				4EE8F0D0166F38F30039866F /* Icon@2x.png */,
 				4EE8F0CD166F38E90039866F /* Icon.png */,
 				4EF75C90167199AC003EA3E2 /* pattern3.png */,
@@ -369,9 +377,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EB9123C1656EEB7000AC73E /* InfoPlist.strings in Resources */,
-				4EB912441656EEB7000AC73E /* Default.png in Resources */,
-				4EB912461656EEB7000AC73E /* Default@2x.png in Resources */,
-				4EB912481656EEB7000AC73E /* Default-568h@2x.png in Resources */,
 				4E4E81AA165C599000ADC4CD /* ProfileViewController.xib in Resources */,
 				4E4E81B0165C59AD00ADC4CD /* AboutViewController.xib in Resources */,
 				4E4E81B5165C59CF00ADC4CD /* SettingsViewController.xib in Resources */,
@@ -393,9 +398,12 @@
 				4EF75C861670A58B003EA3E2 /* LeaderBoardTableViewCell.xib in Resources */,
 				4EF75C8B16719127003EA3E2 /* DetailedViewController.xib in Resources */,
 				4EF75C91167199AC003EA3E2 /* pattern3.png in Resources */,
-				4E047EE1167556200028B1CE /* Placeholder.png in Resources */,
 				4E047EF516758E170028B1CE /* DetailVsViewController.xib in Resources */,
 				4E047EFA1675C27A0028B1CE /* DetailVsTableViewCell.xib in Resources */,
+				4E9DB14C1684FBB1006811FD /* Placeholder.png in Resources */,
+				4EC529F71685104D00B1C639 /* Default.png in Resources */,
+				4EC529FA1685105600B1C639 /* Default@2x.png in Resources */,
+				4EC529FC1685105D00B1C639 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +473,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7s armv7";
@@ -488,6 +497,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -498,6 +508,10 @@
 		4EB9124F1656EEB7000AC73E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TweetMySteps\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TweetMySteps/TweetMySteps-Prefix.pch";
 				INFOPLIST_FILE = "TweetMySteps/TweetMySteps-Info.plist";
@@ -510,6 +524,10 @@
 		4EB912501656EEB7000AC73E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TweetMySteps\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TweetMySteps/TweetMySteps-Prefix.pch";
 				INFOPLIST_FILE = "TweetMySteps/TweetMySteps-Info.plist";

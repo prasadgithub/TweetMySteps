@@ -54,6 +54,13 @@
 -(void) viewWillAppear:(BOOL)animated{
     
     
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                     style: UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+
+    
     _totalStepsLabel.text=totalSteps;
     
     _timeLabel.text=time;
@@ -61,6 +68,15 @@
     [self.tableView reloadData];
     
 }
+
+
+- (void)flushCache
+{
+    [SDWebImageManager.sharedManager.imageCache clearMemory];
+    [SDWebImageManager.sharedManager.imageCache clearDisk];
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -106,7 +122,8 @@
     
     NSMutableDictionary *tweetDictionary=[subTweetsArray objectAtIndex:indexPath.row];
     
-    cell.imageView.image=[UIImage imageWithData:imageData];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[tweetDictionary objectForKey:@"IMG"]]
+                   placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
     
     [cell.imageView.layer setMasksToBounds:YES];
     

@@ -26,6 +26,8 @@
     
 }
 
+@property (strong, nonatomic) IBOutlet UILabel *handleLabel;
+
 
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 

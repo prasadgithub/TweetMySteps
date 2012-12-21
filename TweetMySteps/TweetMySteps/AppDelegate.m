@@ -116,15 +116,15 @@
                  [postRequest performRequestWithHandler:^(NSData *responseData,
                                                           NSHTTPURLResponse *urlResponse, NSError *error)
                   {
-                      
-                      self.dataSource = [NSJSONSerialization
-                                    JSONObjectWithData:responseData
-                                    options:NSJSONReadingMutableLeaves
-                                    error:&error];
-                      
-                      if (self.dataSource.count != 0) {
-                       
-                
+                   
+                      if (self.dataSource) {
+                          
+                          self.dataSource = [NSJSONSerialization
+                                             JSONObjectWithData:responseData
+                                             options:NSJSONReadingMutableLeaves
+                                             error:&error];
+
+                          
                       }
                 }];
              }

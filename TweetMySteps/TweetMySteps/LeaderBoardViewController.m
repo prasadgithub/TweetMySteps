@@ -78,6 +78,13 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     
+    
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                     style: UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self.tableView reloadData];
@@ -101,7 +108,13 @@
     
     NSError *error;
     
-    lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeData options:kNilOptions error:&error];
+    if (lifetimeData) {
+        
+        lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeData options:kNilOptions error:&error];
+
+        
+    }
+
 
     NSString *weekURLString=@"http://m.tweetmysteps.com/updateServiceJSON.php?time=week";
     
@@ -110,10 +123,15 @@
     NSURL *tmsWeekURL=[NSURL URLWithString:weekURLEncoded];
     
     NSData *weekData=[NSData dataWithContentsOfURL:tmsWeekURL];
-    
 
-    weekTweetsArray=[NSJSONSerialization JSONObjectWithData:weekData options:kNilOptions error:&error];
+    if (weekData) {
+     
+        weekTweetsArray=[NSJSONSerialization JSONObjectWithData:weekData options:kNilOptions error:&error];
     
+        
+    }
+
+
     NSString *todayURLString=@"http://m.tweetmysteps.com/updateServiceJSON.php?time=today";
     
     NSString *todayURLEncoded = [todayURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -122,8 +140,8 @@
     
     NSData *todayData=[NSData dataWithContentsOfURL:tmsTodayURL];
     
-    
-    todayTweetsArray=[NSJSONSerialization JSONObjectWithData:todayData options:kNilOptions error:&error];
+    if(todayData)
+        todayTweetsArray=[NSJSONSerialization JSONObjectWithData:todayData options:kNilOptions error:&error];
     
 
     NSString *noTweetString=@"http://m.tweetmysteps.com/displayNoTweetJSON.php";
@@ -134,12 +152,16 @@
     
     NSData *noTweetMSGData=[NSData dataWithContentsOfURL:tmsNoTweetURL];
     
-    
-    NSArray *json=[NSJSONSerialization JSONObjectWithData:noTweetMSGData options:kNilOptions error:&error];
-    
-    NSDictionary *message=[json lastObject];
+    if (noTweetMSGData) {
 
-    noTweetMSG=[message objectForKey:@"MSG"];
+        NSArray *json=[NSJSONSerialization JSONObjectWithData:noTweetMSGData options:kNilOptions error:&error];
+        
+        NSDictionary *message=[json lastObject];
+        
+        noTweetMSG=[message objectForKey:@"MSG"];
+
+    }
+    
     
 
 }
@@ -174,6 +196,11 @@
     
 }
 
+- (void)flushCache
+{
+    [SDWebImageManager.sharedManager.imageCache clearMemory];
+    [SDWebImageManager.sharedManager.imageCache clearDisk];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -279,14 +306,14 @@
                 NSMutableDictionary *tweet=(NSMutableDictionary *)dataArray[indexPath.row];
                 
                 
-                cell.image.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]]];
+                [cell.image setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
+                               placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+
                 
+               
                 [cell.image.layer setMasksToBounds:YES];
                 
                 [cell.image.layer setCornerRadius:7.0f];
-                //[cell.image.layer setBorderColor: [[UIColor blackColor] CGColor]];
-                //[cell.image.layer setBorderWidth: 1.0];
-
                 
                 cell.comment.text=[tweet objectForKey:@"COMMENT"];
                 
@@ -352,8 +379,10 @@
             NSMutableDictionary *tweet=(NSMutableDictionary *)dataArray[indexPath.row];
             
             
-            cell.image.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]]];
+            [cell.image setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
+                       placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
             
+     
             [cell.image.layer setMasksToBounds:YES];
             
             [cell.image.layer setCornerRadius:7.0f];
@@ -422,8 +451,9 @@
             
             NSMutableDictionary *tweet=(NSMutableDictionary *)dataArray[indexPath.row];            
 
-            cell.image.image=[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]]];
-
+            [cell.image setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
+                       placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+            
             [cell.image.layer setMasksToBounds:YES];
             
             [cell.image.layer setCornerRadius:7.0f];

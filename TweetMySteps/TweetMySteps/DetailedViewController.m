@@ -50,6 +50,7 @@
     
     
 }
+
 -(void) viewWillAppear:(BOOL)animated{
     
 
@@ -57,14 +58,33 @@
     
     _timeLabel.text=time;
     
+    
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                     style: UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+
+    
     [self.tableView reloadData];
      
 }
+
+
+- (void)flushCache
+{
+    [SDWebImageManager.sharedManager.imageCache clearMemory];
+    [SDWebImageManager.sharedManager.imageCache clearDisk];
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    
 }
 
 
@@ -104,6 +124,10 @@
     
     
     NSMutableDictionary *tweetDictionary=[subTweetsArray objectAtIndex:indexPath.row];
+   
+    
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[tweetDictionary objectForKey:@"IMG"]]
+                       placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
     
     cell.imageView.image=[UIImage imageWithData:imageData];
     

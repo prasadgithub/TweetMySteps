@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+
 
 @interface LeaderBoardTableViewCell : UITableViewCell{
     

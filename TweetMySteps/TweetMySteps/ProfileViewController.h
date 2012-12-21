@@ -10,6 +10,10 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 #import <Twitter/Twitter.h>
+
+#import <SDWebImage/UIImageView+WebCache.h>
+
+
 @class AppDelegate;
 
 @interface ProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>{

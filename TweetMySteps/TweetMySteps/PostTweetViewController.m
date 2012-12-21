@@ -95,7 +95,26 @@
     
     [comment setTextColor:[UIColor lightGrayColor]];
     
+    NSMutableDictionary *dict=delegate.dataSource;
     
+    if ([dict count]>0) {
+        
+        _handleLabel.text=[@"@" stringByAppendingString:[dict objectForKey:@"screen_name"]];
+        
+    }else{
+        
+        _stepsTextField.enabled=NO;
+        _commentTextView.editable=NO;
+        
+        tweetButton.enabled=NO;
+        
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TMS: Unable to access Twitter Account" message:@"Please configure Twitter account in the Settings App." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK",nil];
+        
+        [alert show];
+       
+        
+    }
+
     
 }
 
@@ -354,9 +373,10 @@
                      ACAccount *twitterAccount = [arrayOfAccounts lastObject];
                      
                      
-                     //NSString *tweetMSG=[[[[[@"@tweetmysteps " stringByAppendingString:[NSString stringWithFormat:@"%d",[_stepsTextField.text intValue]]] stringByAppendingString:@" steps:"] stringByAppendingString:comment.text] stringByAppendingString:@" http://m.tweetmysteps.com/userProfile.php?username="] stringByAppendingString:[dataSource objectForKey:@"screen_name"]];
-                   
-                     NSMutableDictionary *dataSource=delegate.dataSource;
+                      NSMutableDictionary *dataSource=delegate.dataSource;
+                     
+
+                     
                      
                      NSString *tweetText=[[[NSString stringWithFormat:@"%d",[_stepsTextField.text intValue]] stringByAppendingString:@" steps:"] stringByAppendingString:comment.text]
                      ;
@@ -364,12 +384,15 @@
                          tweetText=[tweetText substringFromIndex:80];
                      }
                      
-                     NSString *tweetMSG1=[[tweetText stringByAppendingString:@" http://m.tweetmysteps.com/userProfile.php?username="] stringByAppendingString:[dataSource objectForKey:@"screen_name"]];
+                     NSString *tweetMSG=[[[@"@tweetmysteps " stringByAppendingString:tweetText] stringByAppendingString:@" http://m.tweetmysteps.com/userProfile.php?username="] stringByAppendingString:[dataSource objectForKey:@"screen_name"]];
+                     
+                     
+                    // NSString *tweetMSG1=[[tweetText stringByAppendingString:@" http://m.tweetmysteps.com/userProfile.php?username="] stringByAppendingString:[dataSource objectForKey:@"screen_name"]];
                      
 
                      
                        
-                     NSDictionary *message = @{@"status": tweetMSG1};
+                     NSDictionary *message = @{@"status": tweetMSG};
                      
                      NSURL *requestURL = [NSURL
                                           URLWithString:@"http://api.twitter.com/1/statuses/update.json"];

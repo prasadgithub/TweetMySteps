@@ -42,23 +42,38 @@
     
     
     dispatch_async(downloadQueue, ^{
+       
+        [self getValues];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self setValues];
+            
+            
+            [self.tableView reloadData];
+        
+            
+        });
         
         
     });
     
     
-    [self getValues];
-    
-    [self setValues];
-    
-    
-    [self.tableView reloadData];
-        
-   
+     
 
     
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    
+    
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                     style: UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+    
+}
 
 - (void)viewDidLoad
 {
@@ -103,8 +118,11 @@
     
     NSData *profileData=[NSData dataWithContentsOfURL:profileURL];
     
-    
-    profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
+    if (profileData) {
+        
+        profileDataArray=[NSJSONSerialization JSONObjectWithData:profileData options:kNilOptions error:&error];
+
+    }
     
     
 
@@ -117,8 +135,12 @@
     
     NSData *lifetimeTweetData=[NSData dataWithContentsOfURL:lifetimeTweetsURL];
     
+    if (lifetimeTweetData) {
+        
+        lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
     
-    lifetimeTweetsArray=[NSJSONSerialization JSONObjectWithData:lifetimeTweetData options:kNilOptions error:&error];
+    }
+    
     
     
     NSString *vsTweetsURLString=[@"http://m.tweetmysteps.com/profileUpdateServiceVSJSON.php?username=" stringByAppendingString:username];
@@ -130,8 +152,13 @@
     
     NSData *vsTweetData=[NSData dataWithContentsOfURL:vsTweetsURL];
     
-    vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
     
+    if (vsTweetData) {
+        
+        vsTweetsArray=[NSJSONSerialization JSONObjectWithData:vsTweetData options:kNilOptions error:&error];
+        
+    }
+     
     noTweetMSG=@"No sweet versus action yet. Stay tuned...";
     
       
@@ -158,7 +185,7 @@
     
     _descTextView.text=[userDataDictionary objectForKey:@"desc"];
     
-    data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[userDataDictionary objectForKey:@"imageURL"]]];
+     data=[NSData dataWithContentsOfURL:[NSURL URLWithString:[userDataDictionary objectForKey:@"imageURL"]]];
     
     imagePic=[[UIImage alloc] initWithData:data];
     
@@ -189,6 +216,12 @@
     _vsWinsLabel.text=[userDataDictionary objectForKey:@"vsWins"];
     
 
+}
+
+- (void)flushCache
+{
+    [SDWebImageManager.sharedManager.imageCache clearMemory];
+    [SDWebImageManager.sharedManager.imageCache clearDisk];
 }
 
 
@@ -243,7 +276,7 @@
         
         UserProfileLifeTimeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        
+             
         if (cell == nil) {
             
             NSArray *views=[[NSBundle mainBundle] loadNibNamed:@"UserProfileLifetimeTableViewCell" owner:nil options:nil];
@@ -257,7 +290,7 @@
             }
             
         }
-        
+
         
         dataArray=lifetimeTweetsArray;
         
@@ -269,22 +302,17 @@
         
         cell.timeLabel.text=[tweet objectForKey:@"TIME"];
         
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+        [cell.profileTabPic setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
+                              placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+            
+        [cell.profileTabPic.layer setMasksToBounds:YES];
+            
+        [cell.profileTabPic.layer setCornerRadius:7.0f];
+            
+        cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
             
 
-            cell.profileTabPic.image=imagePic;
-     
-            [cell.profileTabPic.layer setMasksToBounds:YES];
-            
-            [cell.profileTabPic.layer setCornerRadius:7.0f];
-            
-            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
-            
 
-            
-        });
-        
         
         if ([tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
         
@@ -351,9 +379,9 @@
             cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
             
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                cell.profileTabPic.image=imagePic;
+      
+                [cell.profileTabPic setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
+                                   placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
                 
                 [cell.profileTabPic.layer setMasksToBounds:YES];
                 
@@ -361,9 +389,8 @@
                 
                 cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
                 
-            });
- 
-
+        
+            
             if ([tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
                 
                 cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
@@ -494,8 +521,10 @@
 
 - (IBAction)segmentChanged:(id)sender {
     
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
     [self.tableView reloadData];
-
+        
+    });
 }
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <Twitter/Twitter.h>
 @class AppDelegate;
 
@@ -55,19 +56,14 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *vsWinsLabel;
 
-
-
 @property (strong, nonatomic) IBOutlet UILabel *todayStepCountLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *lifetimeStepCountLabel;
-
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 
 - (IBAction)segmentChanged:(id)sender;
-
-
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
