@@ -35,35 +35,6 @@
     return self;
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-
-    dispatch_queue_t downloadQueue=dispatch_queue_create("Download Queue",NULL);
-    
-    
-    dispatch_async(downloadQueue, ^{
-       
-        [self getValues];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self setValues];
-            
-            
-            [self.tableView reloadData];
-        
-            
-        });
-        
-        
-    });
-    
-    
-     
-
-    
-}
-
 -(void) viewWillAppear:(BOOL)animated{
     
     
@@ -73,6 +44,27 @@
                                     target:nil
                                     action:nil];
     
+    dispatch_queue_t downloadQueue=dispatch_queue_create("Download Queue",NULL);
+    
+    
+    dispatch_async(downloadQueue, ^{
+        
+        [self getValues];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [self setValues];
+            
+            
+            [self.tableView reloadData];
+            
+            
+        });
+        
+        
+    });
+    
+
 }
 
 - (void)viewDidLoad
@@ -289,31 +281,40 @@
                 
             }
             
+            
+            cell.profileTabPic.layer.opaque=YES;
+            cell.profileTabPic.layer.shouldRasterize=NO;
+            
+            
         }
 
+        cell.layer.opaque=YES;
+        
+        cell.layer.shouldRasterize = YES;
+        
+        cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
         
         dataArray=lifetimeTweetsArray;
         
         NSMutableDictionary *tweet=[dataArray objectAtIndex:indexPath.row];
         
-        cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
-        
-        cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
-        
-        cell.timeLabel.text=[tweet objectForKey:@"TIME"];
+            cell.handleLabel.text=[@"@" stringByAppendingString :[tweet objectForKey:@"HNDL"]];
         
         [cell.profileTabPic setImageWithURL:[NSURL URLWithString:[tweet objectForKey:@"IMG"]]
-                              placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
-            
-        [cell.profileTabPic.layer setMasksToBounds:YES];
-            
-        [cell.profileTabPic.layer setCornerRadius:7.0f];
-            
-        cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
-            
-
-
+                           placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
         
+        
+            cell.stepCountLabel.text=[tweet objectForKey:@"STEPS"];
+        
+            cell.timeLabel.text=[tweet objectForKey:@"TIME"];
+        
+            [cell.profileTabPic.layer setMasksToBounds:YES];
+            
+            [cell.profileTabPic.layer setCornerRadius:7.0f];
+            
+            cell.commentTextView.text=[tweet objectForKey:@"COMMENT"];
+            
+
         if ([tweet objectForKey:@"SUBTWEETS"]!=[NSNull null]) {
         
             cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
@@ -409,22 +410,17 @@
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 450)]; // x,y,width,height
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 420)];
     
-    [_profileView setFrame:CGRectMake(10.0, 20.0, 300, 153)];
+    [_profileView setFrame:CGRectMake(10.0, 10.0, 300, 360)];
     
-    [_statsView setFrame:CGRectMake(10.0, 215.0, 300, 200)];
-    
-    
-    [_segmentControl setFrame:CGRectMake(20.0, 425, 280.0, 30.0)];
+   
+    [_segmentControl setFrame:CGRectMake(20.0, 380, 280.0, 30.0)];
     
     
     [headerView addSubview:_profileView];
     
-    
-    [headerView addSubview:_statsView];
-    
-    
+     
     [headerView addSubview:_segmentControl];
     
     return headerView;
@@ -434,7 +430,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 470.0f;
+    return 420.0f;
     
 }
 

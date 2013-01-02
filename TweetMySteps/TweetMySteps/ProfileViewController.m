@@ -113,6 +113,10 @@
         
         [alert show];
         
+        _scrollView.scrollEnabled=NO;
+        
+        [_scrollView setContentSize:CGSizeMake(320, 480)];
+        
         
         _profileSubView.hidden=YES;
         

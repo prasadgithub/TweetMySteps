@@ -11,7 +11,7 @@
 @interface UserProfileLifeTimeTableViewCell : UITableViewCell{
     
 }
-@property (strong, nonatomic) IBOutlet UITextView *commentTextView;
+@property (strong, nonatomic) IBOutlet UILabel *commentTextView;
 
 @property (strong, nonatomic) IBOutlet UILabel *stepCountLabel;
 

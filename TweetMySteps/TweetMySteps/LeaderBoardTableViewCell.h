@@ -17,7 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *image;
 @property (strong, nonatomic) IBOutlet UILabel *twitterHandle;
 @property (strong, nonatomic) IBOutlet UILabel *stepCount;
-@property (strong, nonatomic) IBOutlet UITextView *comment;
+@property (strong, nonatomic) IBOutlet UILabel *comment;
 
 
 

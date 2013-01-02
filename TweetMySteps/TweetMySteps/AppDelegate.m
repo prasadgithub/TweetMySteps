@@ -93,9 +93,11 @@
                                          accountsWithAccountType:accountType];
              
              if ([arrayOfAccounts count] > 0)
+                 
+                 
              {
                  ACAccount *twitterAccount = [arrayOfAccounts lastObject];
-                  
+                 
                  NSURL *requestURL = [NSURL
                                       URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
                  
@@ -117,15 +119,18 @@
                                                           NSHTTPURLResponse *urlResponse, NSError *error)
                   {
                    
-                      if (self.dataSource) {
-                          
+                      if (responseData) {
                           self.dataSource = [NSJSONSerialization
                                              JSONObjectWithData:responseData
                                              options:NSJSONReadingMutableLeaves
                                              error:&error];
 
-                          
                       }
+                      
+
+                          
+
+                      
                 }];
              }
          }

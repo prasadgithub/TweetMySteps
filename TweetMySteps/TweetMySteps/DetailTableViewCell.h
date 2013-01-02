@@ -20,6 +20,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 
-@property (strong, nonatomic) IBOutlet UITextView *commentTextView;
+@property (strong, nonatomic) IBOutlet UILabel *commentTextView;
 
 @end

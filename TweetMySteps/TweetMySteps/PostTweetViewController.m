@@ -104,9 +104,11 @@
     }else{
         
         _stepsTextField.enabled=NO;
-        _commentTextView.editable=NO;
-        
+       
+        _progressView.hidden=YES;
+        _stepCountLabel.hidden=YES;
         tweetButton.enabled=NO;
+        comment.editable=NO;
         
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TMS: Unable to access Twitter Account" message:@"Please configure Twitter account in the Settings App." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK",nil];
         
